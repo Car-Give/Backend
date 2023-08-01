@@ -9,9 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +22,12 @@ public class FavoriteController {
     public ResponseEntity<ResultResponse> createFavorite(@Valid @RequestBody FavoriteCreateRequest createRequest){
         favoriteService.createFavorite(createRequest);
         return ResponseEntity.ok(ResultResponse.of(ResultCode.FAVORITE_CREATE_SUCCESS));
+    }
+
+    @DeleteMapping("/{favoriteId}")
+    public ResponseEntity<ResultResponse> deleteFavorite(@PathVariable Long favoriteId){
+        favoriteService.deleteFavorite(favoriteId);
+        return ResponseEntity.ok(ResultResponse.of(ResultCode.FAVORITE_DELETE_SUCCESS));
     }
 
 }
