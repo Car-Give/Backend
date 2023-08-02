@@ -42,4 +42,8 @@ public class ParkingLot extends BaseEntity {
         this.fee = fee;
         this.favorite = favorite;
     }
+
+    public void updateFavoriteCount(){
+        favorite.downCount();
+    }
 }

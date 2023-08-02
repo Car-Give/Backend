@@ -30,5 +30,6 @@ public class Favorite extends BaseEntity {
     public void upCount(){
         this.count++;
     }
+    public void downCount() { this.count--; }
 
 }
