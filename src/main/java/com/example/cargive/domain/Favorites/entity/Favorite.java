@@ -12,6 +12,7 @@ public class Favorite extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "favorite_id")
     private Long id;
 
     @Column(name = "favorite_name", length = 30, nullable = false)
@@ -24,6 +25,10 @@ public class Favorite extends BaseEntity {
     public Favorite(String name, Long count){
         this.name = name;
         this.count = count;
+    }
+
+    public void upCount(){
+        this.count++;
     }
 
 }
