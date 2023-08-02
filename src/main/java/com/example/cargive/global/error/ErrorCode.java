@@ -12,7 +12,10 @@ public enum ErrorCode {
     INPUT_INVALID_VALUE(400, "G002", "잘못된 입력"),
 
     //Favorite
-    FAVORITE_NOT_FOUND_ERROR(400, "F001", "존재하지 않는 즐겨찾기 입니다.");
+    FAVORITE_NOT_FOUND_ERROR(400, "F001", "존재하지 않는 즐겨찾기 입니다."),
+
+    //ParkingLot
+    PARKING_LOT_NOT_FOUND_ERROR(400, "P001", "존재하지 않는 주차장 입니다.");
 
 
     private final int status;
