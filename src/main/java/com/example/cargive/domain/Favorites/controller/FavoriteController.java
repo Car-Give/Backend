@@ -7,6 +7,7 @@ import com.example.cargive.global.result.ResultCode;
 import com.example.cargive.global.result.ResultResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class FavoriteController {
     @PostMapping
     public ResponseEntity<ResultResponse> createFavorite(@Valid @RequestBody FavoriteCreateRequest createRequest){
         favoriteService.createFavorite(createRequest);
-        return ResponseEntity.ok(ResultResponse.of(ResultCode.FAVORITE_CREATE_SUCCESS));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResultResponse.of(ResultCode.FAVORITE_CREATE_SUCCESS));
     }
 
     @DeleteMapping("/{favoriteId}")
