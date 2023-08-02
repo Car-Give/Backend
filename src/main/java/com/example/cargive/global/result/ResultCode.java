@@ -12,7 +12,8 @@ public enum ResultCode {
     FAVORITE_DELETE_SUCCESS("F002", "즐겨찾기 삭제 성공"),
 
     // 주차장
-    PARKING_LOT_CREATE_SUCCESS("P001", "주차장 생성 성공");
+    PARKING_LOT_CREATE_SUCCESS("P001", "주차장 생성 성공"),
+    PARKING_LOT_DELETE_SUCCESS("P002", "주차장 삭제 성공");
 
     private final String code;
     private final String message;
