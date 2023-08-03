@@ -13,7 +13,8 @@ public enum ResultCode {
 
     // 주차장
     PARKING_LOT_CREATE_SUCCESS("P001", "주차장 생성 성공"),
-    PARKING_LOT_DELETE_SUCCESS("P002", "주차장 삭제 성공");
+    PARKING_LOT_DELETE_SUCCESS("P002", "주차장 삭제 성공"),
+    PARKING_LOT_READ_SUCCESS("P003", "주차장 조회 성공");
 
     private final String code;
     private final String message;
