@@ -4,10 +4,14 @@ import com.example.cargive.domain.Favorites.entity.Favorite;
 import com.example.cargive.domain.Favorites.service.FavoriteService;
 import com.example.cargive.domain.ParkingLot.dto.mapper.ParkingLotMapper;
 import com.example.cargive.domain.ParkingLot.dto.request.ParkingLotCreateRequest;
+import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotSliceInfo;
 import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
 import com.example.cargive.domain.ParkingLot.exception.ParkingLotNotFoundException;
 import com.example.cargive.domain.ParkingLot.repository.ParkingLotRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +34,12 @@ public class ParkingLotService {
         ParkingLot parkingLot = findParkingLotById(parkingLotId);
         parkingLot.updateFavoriteCount();
         parkingLotRepository.delete(parkingLot);
+    }
+
+    public ParkingLotSliceInfo findParkingLots(int offset, int size, Long favoriteId, Long parkingLotId){
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        Slice<ParkingLot> parkingLots = parkingLotRepository.findParkingLotsByFavoriteId(favoriteId, parkingLotId, pageRequest);
+        return parkingLotMapper.toParkingLotInfoList(parkingLots);
     }
 
     @Transactional(readOnly = true)
