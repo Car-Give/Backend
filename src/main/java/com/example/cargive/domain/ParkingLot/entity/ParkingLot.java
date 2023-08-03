@@ -16,6 +16,7 @@ public class ParkingLot extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "parking_lot_id")
     private Long id;
 
     @Column(nullable = false, length = 100)
