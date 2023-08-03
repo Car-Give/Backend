@@ -30,7 +30,7 @@ public class ParkingLot extends BaseEntity {
     @Column(nullable = false)
     private String fee;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "favorite_id")
     private Favorite favorite;
 
@@ -41,6 +41,7 @@ public class ParkingLot extends BaseEntity {
         this.address = address;
         this.fee = fee;
         this.favorite = favorite;
+        favorite.getParkingLots().add(this);
     }
 
     public void updateFavoriteCount(){
