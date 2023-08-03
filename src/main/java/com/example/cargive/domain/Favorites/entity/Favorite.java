@@ -1,8 +1,12 @@
 package com.example.cargive.domain.Favorites.entity;
 
+import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
 import com.example.cargive.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,10 +25,16 @@ public class Favorite extends BaseEntity {
     @Column(nullable = false)
     private Long count;
 
+    @OneToMany(mappedBy = "favorite",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<ParkingLot> parkingLots;
+
     @Builder
     public Favorite(String name, Long count){
         this.name = name;
         this.count = count;
+        this.parkingLots = new ArrayList<>();
     }
 
     public void upCount(){
