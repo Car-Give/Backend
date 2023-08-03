@@ -26,8 +26,8 @@ public class ParkingLotController {
 
     @PostMapping
     public ResponseEntity<ResultResponse> createParkingLot(@Valid @RequestBody ParkingLotCreateRequest request){
-        parkingLotService.createParkingLot(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ResultResponse.of(ResultCode.PARKING_LOT_CREATE_SUCCESS));
+         ParkingLotInfo parkingLotInfo = parkingLotService.createParkingLot(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ResultResponse.of(ResultCode.PARKING_LOT_CREATE_SUCCESS, parkingLotInfo));
     }
 
     @DeleteMapping("/{parkingLotId}")
