@@ -4,13 +4,13 @@ import com.example.cargive.domain.Favorites.entity.Favorite;
 import com.example.cargive.domain.Favorites.service.FavoriteService;
 import com.example.cargive.domain.ParkingLot.dto.mapper.ParkingLotMapper;
 import com.example.cargive.domain.ParkingLot.dto.request.ParkingLotCreateRequest;
+import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotInfo;
 import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotSliceInfo;
 import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
 import com.example.cargive.domain.ParkingLot.exception.ParkingLotNotFoundException;
 import com.example.cargive.domain.ParkingLot.repository.ParkingLotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,10 +24,11 @@ public class ParkingLotService {
     private final FavoriteService favoriteService;
 
 
-    public void createParkingLot(ParkingLotCreateRequest request){
+    public ParkingLotInfo createParkingLot(ParkingLotCreateRequest request){
         Favorite findFavorite = favoriteService.findFavoriteById(request.getFavoriteId());
         findFavorite.upCount();
-        parkingLotRepository.save(parkingLotMapper.toCreateRequest(request, findFavorite));
+        ParkingLot parkingLot =  parkingLotRepository.save(parkingLotMapper.toCreateRequest(request, findFavorite));
+        return parkingLotMapper.toEntity(parkingLot);
     }
 
     public void deleteParkingLot(Long parkingLotId){
