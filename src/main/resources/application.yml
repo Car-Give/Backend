@@ -14,5 +14,10 @@ spring:
   datasource:
     driver-class-name: "com.mysql.cj.jdbc.Driver"
     url: "jdbc:mysql://localhost:3306/carGive?serverTimezone=UTC&characterEncoding=UTF-8"
-    username: ""
-    password: ""
+    username: "root"
+    password: "sm4452"
+
+kakao:
+  client:
+    id: a75dbe5a8005ad1884f72e654bc10d11
+    secret: bXSoAPFtOa5PsUpqTRQgRNfSTVhugzKt
