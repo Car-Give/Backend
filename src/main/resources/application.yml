@@ -17,7 +17,5 @@ spring:
     username: "root"
     password: "sm4452"
 
-kakao:
-  client:
-    id: a75dbe5a8005ad1884f72e654bc10d11
-    secret: bXSoAPFtOa5PsUpqTRQgRNfSTVhugzKt
+jwt:
+  secret: 9338f60fb540cc5f56629a3f378bd3548d10b57f4b47698274a7308f4da25c83cabc8ca13fa03ebb90b940f20d6ef20940168a6c91ee17d985663b653a75ffcc

@@ -1,4 +1,4 @@
-package com.example.cargive.web.dto;
+package com.example.cargive.dto;
 
 import lombok.Data;
 
