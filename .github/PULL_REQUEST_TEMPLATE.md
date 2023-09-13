@@ -1,21 +1,15 @@
-## 📢 기능 설명
-필요시 실행결과 스크린샷 첨부
-<br>
+## Summary 📌
 
-## 연결된 issue
-연결된 issue를 자동으로 닫기 위해 아래 {이슈넘버}를 입력해주세요. <br>
-close #{이슈넘버}
-<br>
-<br>
+## Describe your changes 📝
 
-## 🩷 Approve 하기 전 확인해주세요!
-- [ ] 리뷰어가 확인해줬으면 하는 사항 적어주세요.
-- [ ] 
+## Check list ✅
+- [ ] I write PR according to the form
+- [ ] All tests are passed
+- [ ] Program works normally
+- [ ] I set proper PR labels
+- [ ] I remove any redundant codes
 
-<br>
+## Opinions 🗣️
 
-## ✅ 체크리스트
-- [ ] PR 제목 규칙 잘 지켰는가?
-- [ ] 추가/수정사항을 설명하였는가?
-- [ ] 이슈넘버를 적었는가?
-- [ ] Approve 하기 전 확인 사항 체크했는가?
+## Issue numbers and link 🚪
+Closes #{issue number}
