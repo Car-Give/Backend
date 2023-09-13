@@ -1,10 +1,10 @@
-package com.example.cargive.domain.Favorites.exception;
+package com.example.cargive.domain.favorites.exception;
 
-import com.example.cargive.global.error.ErrorCode;
+import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 
 public class FavoriteNotFoundException extends BusinessException {
     public FavoriteNotFoundException() {
-        super(ErrorCode.FAVORITE_NOT_FOUND_ERROR);
+        super(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
     }
 }

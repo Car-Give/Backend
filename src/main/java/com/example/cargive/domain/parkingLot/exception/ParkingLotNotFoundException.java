@@ -1,10 +1,10 @@
-package com.example.cargive.domain.ParkingLot.exception;
+package com.example.cargive.domain.parkingLot.exception;
 
-import com.example.cargive.global.error.ErrorCode;
+import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 
 public class ParkingLotNotFoundException extends BusinessException {
     public ParkingLotNotFoundException() {
-        super(ErrorCode.PARKING_LOT_NOT_FOUND_ERROR);
+        super(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR);
     }
 }
