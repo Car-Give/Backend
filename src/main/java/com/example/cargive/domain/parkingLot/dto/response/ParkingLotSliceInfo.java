@@ -1,4 +1,4 @@
-package com.example.cargive.domain.ParkingLot.dto.response;
+package com.example.cargive.domain.parkingLot.dto.response;
 
 import lombok.*;
 

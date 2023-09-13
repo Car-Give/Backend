@@ -1,4 +1,4 @@
-package com.example.cargive.domain.Favorites.dto.request;
+package com.example.cargive.domain.favorites.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

@@ -1,21 +1,17 @@
-package com.example.cargive.domain.ParkingLot.controller;
+package com.example.cargive.domain.parkingLot.controller;
 
-import com.example.cargive.domain.ParkingLot.dto.request.ParkingLotCreateRequest;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotInfo;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotSliceInfo;
-import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
-import com.example.cargive.domain.ParkingLot.service.ParkingLotService;
+import com.example.cargive.domain.parkingLot.dto.request.ParkingLotCreateRequest;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotInfo;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotSliceInfo;
+import com.example.cargive.domain.parkingLot.service.ParkingLotService;
 import com.example.cargive.global.result.ResultCode;
 import com.example.cargive.global.result.ResultResponse;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor

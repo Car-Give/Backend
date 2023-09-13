@@ -1,14 +1,14 @@
-package com.example.cargive.domain.ParkingLot.service;
+package com.example.cargive.domain.parkingLot.service;
 
-import com.example.cargive.domain.Favorites.entity.Favorite;
-import com.example.cargive.domain.Favorites.service.FavoriteService;
-import com.example.cargive.domain.ParkingLot.dto.mapper.ParkingLotMapper;
-import com.example.cargive.domain.ParkingLot.dto.request.ParkingLotCreateRequest;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotInfo;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotSliceInfo;
-import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
-import com.example.cargive.domain.ParkingLot.exception.ParkingLotNotFoundException;
-import com.example.cargive.domain.ParkingLot.repository.ParkingLotRepository;
+import com.example.cargive.domain.favorites.entity.Favorite;
+import com.example.cargive.domain.favorites.service.FavoriteService;
+import com.example.cargive.domain.parkingLot.dto.mapper.ParkingLotMapper;
+import com.example.cargive.domain.parkingLot.dto.request.ParkingLotCreateRequest;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotInfo;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotSliceInfo;
+import com.example.cargive.domain.parkingLot.entity.ParkingLot;
+import com.example.cargive.domain.parkingLot.exception.ParkingLotNotFoundException;
+import com.example.cargive.domain.parkingLot.repository.ParkingLotRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;

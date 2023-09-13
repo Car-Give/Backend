@@ -1,4 +1,4 @@
-package com.example.cargive.domain.ParkingLot.dto.request;
+package com.example.cargive.domain.parkingLot.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,15 +1,14 @@
-package com.example.cargive.domain.ParkingLot.dto.mapper;
+package com.example.cargive.domain.parkingLot.dto.mapper;
 
-import com.example.cargive.domain.Favorites.entity.Favorite;
-import com.example.cargive.domain.ParkingLot.dto.request.ParkingLotCreateRequest;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotInfo;
-import com.example.cargive.domain.ParkingLot.dto.response.ParkingLotSliceInfo;
-import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
+import com.example.cargive.domain.favorites.entity.Favorite;
+import com.example.cargive.domain.parkingLot.dto.request.ParkingLotCreateRequest;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotInfo;
+import com.example.cargive.domain.parkingLot.dto.response.ParkingLotSliceInfo;
+import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ParkingLotMapper {

@@ -1,6 +1,6 @@
-package com.example.cargive.domain.ParkingLot.entity;
+package com.example.cargive.domain.parkingLot.entity;
 
-import com.example.cargive.domain.Favorites.entity.Favorite;
+import com.example.cargive.domain.favorites.entity.Favorite;
 import com.example.cargive.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

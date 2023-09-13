@@ -1,6 +1,6 @@
-package com.example.cargive.domain.Favorites.entity;
+package com.example.cargive.domain.favorites.entity;
 
-import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
+import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import com.example.cargive.global.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "Favorites")
+@Table(name = "favorites")
 public class Favorite extends BaseEntity {
 
     @Id

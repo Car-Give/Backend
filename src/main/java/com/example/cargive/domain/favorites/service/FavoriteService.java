@@ -1,11 +1,11 @@
-package com.example.cargive.domain.Favorites.service;
+package com.example.cargive.domain.favorites.service;
 
 
-import com.example.cargive.domain.Favorites.dto.mapper.FavoriteMapper;
-import com.example.cargive.domain.Favorites.dto.request.FavoriteCreateRequest;
-import com.example.cargive.domain.Favorites.entity.Favorite;
-import com.example.cargive.domain.Favorites.exception.FavoriteNotFoundException;
-import com.example.cargive.domain.Favorites.repository.FavoritesRepository;
+import com.example.cargive.domain.favorites.dto.mapper.FavoriteMapper;
+import com.example.cargive.domain.favorites.dto.request.FavoriteCreateRequest;
+import com.example.cargive.domain.favorites.entity.Favorite;
+import com.example.cargive.domain.favorites.exception.FavoriteNotFoundException;
+import com.example.cargive.domain.favorites.repository.FavoritesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

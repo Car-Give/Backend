@@ -1,6 +1,6 @@
-package com.example.cargive.domain.ParkingLot.repository;
+package com.example.cargive.domain.parkingLot.repository;
 
-import com.example.cargive.domain.ParkingLot.entity.ParkingLot;
+import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ParkingLotRepository extends JpaRepository<ParkingLot, Long> {
     @Query("select p " +
-            "from ParkingLot p " +
+            "from parkingLot p " +
             "join p.favorite f " +
             "where f.id = :favoriteId " +
             "and p.id < :parkingLotId " +

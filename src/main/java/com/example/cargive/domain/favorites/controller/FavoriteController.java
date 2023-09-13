@@ -1,8 +1,8 @@
-package com.example.cargive.domain.Favorites.controller;
+package com.example.cargive.domain.favorites.controller;
 
 
-import com.example.cargive.domain.Favorites.dto.request.FavoriteCreateRequest;
-import com.example.cargive.domain.Favorites.service.FavoriteService;
+import com.example.cargive.domain.favorites.dto.request.FavoriteCreateRequest;
+import com.example.cargive.domain.favorites.service.FavoriteService;
 import com.example.cargive.global.result.ResultCode;
 import com.example.cargive.global.result.ResultResponse;
 import jakarta.validation.Valid;

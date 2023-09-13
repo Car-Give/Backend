@@ -1,7 +1,7 @@
-package com.example.cargive.domain.Favorites.dto.mapper;
+package com.example.cargive.domain.favorites.dto.mapper;
 
-import com.example.cargive.domain.Favorites.dto.request.FavoriteCreateRequest;
-import com.example.cargive.domain.Favorites.entity.Favorite;
+import com.example.cargive.domain.favorites.dto.request.FavoriteCreateRequest;
+import com.example.cargive.domain.favorites.entity.Favorite;
 import org.springframework.stereotype.Component;
 
 @Component
