@@ -1,4 +1,4 @@
-package com.example.cargive.domain.favorites.exception;
+package com.example.cargive.domain.favorite.exception;
 
 import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
