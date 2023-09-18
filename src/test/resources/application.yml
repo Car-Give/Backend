@@ -1,17 +1,17 @@
 spring:
   profiles:
-    default: dev
+    active: test
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/carGive?serverTimezone=UTC&characterEncoding=UTF-8
-    username:
+    url: jdbc:h2:mem:test;MODE=MYSQL;
+    username: sa
     password:
+    driver-class-name: org.h2.Driver
 
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: false
