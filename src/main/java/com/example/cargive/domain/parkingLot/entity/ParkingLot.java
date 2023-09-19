@@ -32,4 +32,8 @@ public class ParkingLot extends BaseEntity {
         this.longitude = longitude;
         this.status = Status.NORMAL;
     }
+
+    public void deleteEntity() {
+        this.status = Status.EXPIRED; // 데이터의 상태를 변경하기 위한 메서드
+    }
 }
