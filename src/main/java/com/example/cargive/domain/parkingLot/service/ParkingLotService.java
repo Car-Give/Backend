@@ -1,14 +1,11 @@
 package com.example.cargive.domain.parkingLot.service;
 
-import com.example.cargive.domain.favorite.entity.Favorite;
-import com.example.cargive.domain.favorite.service.FavoriteService;
-import com.example.cargive.domain.parkingLot.dto.mapper.ParkingLotMapper;
-import com.example.cargive.domain.parkingLot.dto.request.ParkingLotCreateRequest;
-import com.example.cargive.domain.parkingLot.dto.response.ParkingLotInfo;
-import com.example.cargive.domain.parkingLot.dto.response.ParkingLotSliceInfo;
+import com.example.cargive.domain.parkingLot.controller.dto.request.ParkingLotRequest;
+import com.example.cargive.domain.parkingLot.controller.dto.response.ParkingLotResponse;
 import com.example.cargive.domain.parkingLot.entity.ParkingLot;
-import com.example.cargive.domain.parkingLot.exception.ParkingLotNotFoundException;
-import com.example.cargive.domain.parkingLot.repository.ParkingLotRepository;
+import com.example.cargive.domain.parkingLot.entity.ParkingLotRepository;
+import com.example.cargive.global.base.BaseResponseStatus;
+import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,35 +13,32 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ParkingLotService {
-
     private final ParkingLotRepository parkingLotRepository;
-    private final ParkingLotMapper parkingLotMapper;
-    private final FavoriteService favoriteService;
 
-
-    public ParkingLotInfo createParkingLot(ParkingLotCreateRequest request){
-        Favorite findFavorite = favoriteService.findFavoriteById(request.getFavoriteId());
-//        findFavorite.upCount();
-        ParkingLot parkingLot =  parkingLotRepository.save(parkingLotMapper.toCreateRequest(request, findFavorite));
-        return parkingLotMapper.toEntity(parkingLot);
-    }
-
-    public void deleteParkingLot(Long parkingLotId){
-        ParkingLot parkingLot = findParkingLotById(parkingLotId);
-//        parkingLot.updateFavoriteCount();
-        parkingLotRepository.delete(parkingLot);
-    }
-
-    public ParkingLotSliceInfo findParkingLots(int offset, int size, Long favoriteId, Long parkingLotId){
-//        PageRequest pageRequest = PageRequest.of(offset, size);
-//        Slice<ParkingLot> parkingLots = parkingLotRepository.findParkingLotsByFavoriteId(favoriteId, parkingLotId, pageRequest);
-//        return parkingLotMapper.toParkingLotInfoList(parkingLots);
-        return null;
-    }
-
+    // Entity의 PK값을 통하여 단일 조회하는 기능, DTO 파일로 데이터 반환
     @Transactional(readOnly = true)
-    public ParkingLot findParkingLotById(Long parkingLotId){
-        return parkingLotRepository.findById(parkingLotId).orElseThrow(ParkingLotNotFoundException::new);
+    public ParkingLotResponse findParkingLot(Long parkingLotId) {
+        ParkingLot findValue = getParkingLotById(parkingLotId);
+        return ParkingLotResponse.toDto(findValue);
     }
 
+    // 사용자로부터 위도와 경도를 입력받아 별도의 주차장 Entity를 생성하는 기능
+    @Transactional
+    public void createParkingLot(ParkingLotRequest request) {
+        ParkingLot parkingLot = request.toParkingLot();
+        parkingLotRepository.save(parkingLot);
+    }
+
+    // Entity의 PK값을 통하여 삭제하는 기능
+    @Transactional
+    public void deleteParkingLot(Long parkingLotId) {
+        ParkingLot findValue = getParkingLotById(parkingLotId);
+        findValue.deleteEntity();
+    }
+
+    // Entity의 PK값을 통해 데이터를 조회하는 메서드, 일치하는 데이터가 존재하지 않을 경우 오류 반환
+    private ParkingLot getParkingLotById(Long parkingLotId) {
+        return parkingLotRepository.findById(parkingLotId)
+                .orElseThrow(() -> new BusinessException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR));
+    }
 }
