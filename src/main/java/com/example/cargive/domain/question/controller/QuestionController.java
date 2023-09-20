@@ -21,7 +21,7 @@ public class QuestionController {
         return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.CREATED);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{questionId}")
     public ResponseEntity<BaseResponse> deleteQuestion(@RequestParam Long memberId,
                                                        @PathVariable Long questionId) {
         questionService.deleteQuestion(memberId, questionId);
