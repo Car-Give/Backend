@@ -34,4 +34,11 @@ public class BaseResponse<T> { // BaseResponse 객체를 사용할때 성공, �
         this.message = status.getMessage();
         this.result = result;
     }
+
+    // 요청에 성공한 경우 (status만 받는 경우)
+    public BaseResponse(BaseResponseStatusImpl status) {
+        this.status = status.getStatus();
+        this.code = status.getCode();
+        this.message = status.getMessage();
+    }
 }

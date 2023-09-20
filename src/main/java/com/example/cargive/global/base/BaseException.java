@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @Setter
 @AllArgsConstructor
-public class BaseException extends Throwable {
+public class BaseException extends RuntimeException {
     private final HttpStatus status;
     private final String code;
     private final String message;
