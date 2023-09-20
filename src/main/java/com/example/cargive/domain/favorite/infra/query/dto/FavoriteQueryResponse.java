@@ -2,7 +2,7 @@ package com.example.cargive.domain.favorite.infra.query.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,28 +11,19 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class FavoriteQueryResponse<T> {
-    private PageInfo pageInfo;
+    private boolean hasNext;
     private List<T> favoriteList = new ArrayList<>();
 
-    // 페이지가 1부터 시작할 수 있도록 1을 더해줌
-    public FavoriteQueryResponse(Page<T> page) {
-        this.favoriteList = page.getContent();
-        this.pageInfo = new PageInfo(page.getNumber() + 1, page.getSize(), page.isFirst(), page.isLast());
+    public FavoriteQueryResponse(List<T> content, Pageable pageable) {
+        this.hasNext = hasNext(content, pageable);
+        this.favoriteList = content;
     }
 
-    @Getter
-    @NoArgsConstructor
-    private static class PageInfo {
-        private int currentPage; // 현재 페이지
-        private int size; // 페이지 내부 데이터의 수
-        private boolean isFirst; // 데이터 목록의 처음인가를 표기
-        private boolean isLast; // 데이터 목록의 마지막인가를 표기
-
-        public PageInfo (int currentPage, int size, boolean isFirst, boolean isLast) {
-            this.currentPage = currentPage;
-            this.size = size;
-            this.isFirst = isFirst;
-            this.isLast = isLast;
+    private boolean hasNext(List<T> content, Pageable pageable) {
+        if(content.size() > pageable.getPageSize()) {
+            content.remove(pageable.getPageSize());
+            return true;
         }
+        return false;
     }
 }
