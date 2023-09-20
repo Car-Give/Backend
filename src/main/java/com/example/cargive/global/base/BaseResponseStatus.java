@@ -17,6 +17,7 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     SUCCESS(HttpStatus.OK, "SUCCESS", "요청에 성공했습니다."),
     CREATED(HttpStatus.CREATED, "CREATED", "요청에 성공했으며 리소스가 정상적으로 생성되었습니다."),
     ACCEPTED(HttpStatus.ACCEPTED, "ACCEPTED", "요청에 성공했으나 처리가 완료되지 않았습니다."),
+    DELETED(HttpStatus.NO_CONTENT, "DELETED", "요청에 성공했으며 더 이상 응답할 내용이 존재하지 않습니다."),
 
     /**
      * 300 : 리다이렉션
@@ -29,11 +30,20 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     INPUT_INVALID_VALUE(HttpStatus.BAD_REQUEST, "REQUEST_ERROR_001", "잘못된 요청입니다."),
     INVALID_ENUM(HttpStatus.BAD_REQUEST, "REQUEST_012", "Enum 타입으로 변경할 수 없습니다."),
 
-    //Favorite
+    // Member
+    MEMBER_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "M001", "존재하지 않는 사용자 입니다."),
+    INVALID_EMAIL_FORMAT(HttpStatus.BAD_REQUEST, "M002", "이메일 형식이 올바르지 않습니다."),
+
+    // Favorite
     FAVORITE_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "F001", "존재하지 않는 즐겨찾기 입니다."),
 
-    //parkingLot
+    // ParkingLot
     PARKING_LOT_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "P001", "존재하지 않는 주차장 입니다."),
+
+    // Question
+    QUESTION_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "Q001", "존재하지 않는 질문 입니다."),
+    QUESTION_MEMBER_NOT_MATCH_ERROR(HttpStatus.BAD_REQUEST, "Q002", "현재 사용자가 작성한 질문이 아닙니다."),
+    QUESTION_CATEGORY_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "Q003", "존재하지 않는 질문 카테고리 입니다."),
 
     /**
      * 500 : 응답 실패
