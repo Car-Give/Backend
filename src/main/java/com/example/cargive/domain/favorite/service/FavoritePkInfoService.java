@@ -26,13 +26,8 @@ public class FavoritePkInfoService {
     public FavoriteQueryResponse<FavoritePkInfoResponse> getFavoriteInfos(Long memberId, String sortBy,
                                                                           Long favoriteGroupId, int page) {
         FavoriteInfoSortCondition sortCondition = FavoriteInfoSortCondition.from(sortBy);
-        FavoriteQueryResponse<FavoritePkInfoResponse> responseData =
-                getQueryResponse(sortCondition, memberId, favoriteGroupId, page);
 
-        if(responseData.getFavoriteList().isEmpty())
-            throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
-
-        return responseData;
+        return getQueryResponse(sortCondition, memberId, favoriteGroupId, page);
     }
 
     // 주차장을 특정 즐겨찾기 그룹에 등록
@@ -60,13 +55,15 @@ public class FavoritePkInfoService {
         favoritePkInfoRepository.delete(findValue);
     }
 
-    // 정렬 기준에 따라서 다른 결과를 반환하는 메서드
+    // 정렬 기준에 따라서 데이터를 조회하는 메서드
     private FavoriteQueryResponse<FavoritePkInfoResponse> getQueryResponse(FavoriteInfoSortCondition sortCondition,
                                                                            Long memberId, Long favoriteGroupId,
                                                                            int page) {
-        if(sortCondition.equals(FavoriteInfoSortCondition.TIME))
-            return favoritePkInfoRepository.getMyFavoritePkInfo(memberId, favoriteGroupId, page);
-        throw new BusinessException(BaseResponseStatus.INPUT_INVALID_VALUE);
+        FavoriteQueryResponse<FavoritePkInfoResponse> responseData =
+                favoritePkInfoRepository.getMyFavoritePkInfo(sortCondition, memberId, favoriteGroupId, page);
+
+        if(!responseData.getFavoriteList().isEmpty()) return responseData;
+        throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
     }
 
     // 현재 로그인하고있는 사용자의 정보와 즐겨찾기 그룹을 소유하고 있는 사용자의 정보를 비교

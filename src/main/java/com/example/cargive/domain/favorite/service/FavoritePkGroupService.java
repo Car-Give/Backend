@@ -24,12 +24,7 @@ public class FavoritePkGroupService {
     public FavoriteQueryResponse<FavoritePkGroupResponse> findFavoriteGroups(Long memberId, String sortBy, int page) {
         FavoriteGroupSortCondition sortCondition = FavoriteGroupSortCondition.from(sortBy);
 
-        FavoriteQueryResponse<FavoritePkGroupResponse> responseData = getQueryResponse(sortCondition, memberId, page);
-
-        if(responseData.getFavoriteList().isEmpty())
-            throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
-
-        return responseData;
+        return getQueryResponse(sortCondition, memberId, page);
     }
 
     // 주차장 즐겨찾기 그룹 생성
@@ -62,13 +57,14 @@ public class FavoritePkGroupService {
         favoriteGroup.deleteEntity();
     }
 
-    // 정렬 기준에 따라서 다른 결과를 반환하는 메소드
-    private FavoriteQueryResponse<FavoritePkGroupResponse> getQueryResponse(
-            FavoriteGroupSortCondition sortCondition,
-            Long memberId, int page) {
-        if(sortCondition.equals(FavoriteGroupSortCondition.TIME))
-            return favoritesRepository.getMyFavoritePkGroupByTime(memberId, page);
-        return favoritesRepository.getMyFavoritePkGroupByTitle(memberId, page);
+    // 정렬 기준에 따라서 데이터를 조회하는 메서드
+    private FavoriteQueryResponse<FavoritePkGroupResponse> getQueryResponse(FavoriteGroupSortCondition sortCondition,
+                                                                            Long memberId, int page) {
+        FavoriteQueryResponse<FavoritePkGroupResponse> responseData =
+                favoritesRepository.getMyFavoritePkGroup(sortCondition, memberId, page);
+
+        if(!responseData.getFavoriteList().isEmpty()) return responseData;
+        throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
     }
 
     // 즐겨찾기 그룹의 이름을 변경하는 메소드
