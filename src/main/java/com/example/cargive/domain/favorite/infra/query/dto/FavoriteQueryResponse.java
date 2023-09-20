@@ -2,7 +2,6 @@ package com.example.cargive.domain.favorite.infra.query.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +10,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class FavoriteQueryResponse<T> {
-    private boolean hasNext;
     private List<T> favoriteList = new ArrayList<>();
 
-    public FavoriteQueryResponse(List<T> content, Pageable pageable) {
-        this.hasNext = hasNext(content, pageable);
+    public FavoriteQueryResponse(List<T> content) {
         this.favoriteList = content;
-    }
-
-    private boolean hasNext(List<T> content, Pageable pageable) {
-        if(content.size() > pageable.getPageSize()) {
-            content.remove(pageable.getPageSize());
-            return true;
-        }
-        return false;
     }
 }

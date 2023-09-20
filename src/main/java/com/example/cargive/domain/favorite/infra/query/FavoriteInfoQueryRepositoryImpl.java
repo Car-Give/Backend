@@ -8,10 +8,9 @@ import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 import com.example.cargive.global.template.Status;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,9 +25,7 @@ public class FavoriteInfoQueryRepositoryImpl implements FavoriteInfoQueryReposit
     @Override
     public FavoriteQueryResponse<FavoritePkInfoResponse> getMyFavoritePkInfo(FavoriteInfoSortCondition sortCondition,
                                                                              Long memberId, Long favoriteGroupId,
-                                                                             int page) {
-        Pageable pageable = PageRequest.of(page, 6);
-
+                                                                             Long cursorId) {
         List<FavoritePkInfoResponse> pkInfoList = jpaQueryFactory
                 .selectDistinct(new QFavoritePkInfoResponse(
                         favoritePkInfo.id,
@@ -36,14 +33,22 @@ public class FavoriteInfoQueryRepositoryImpl implements FavoriteInfoQueryReposit
                         favoritePkInfo.createAt)
                 )
                 .from(favoritePkInfo)
-                .where(favoritePkInfo.favoritePkGroup.id.eq(favoriteGroupId),
+                .where(getOffsetCondition(sortCondition, cursorId),
+                        favoritePkInfo.favoritePkGroup.id.eq(favoriteGroupId),
                         favoritePkInfo.favoritePkGroup.status.eq(Status.NORMAL),
                         favoritePkInfo.parkingLot.status.eq(Status.NORMAL))
                 .orderBy(getSortCondition(sortCondition))
-                .limit(pageable.getPageSize() + 1)
+                .limit(6)
                 .fetch();
 
-        return new FavoriteQueryResponse<>(pkInfoList, pageable);
+        return new FavoriteQueryResponse<>(pkInfoList);
+    }
+
+    private BooleanExpression getOffsetCondition(FavoriteInfoSortCondition sortCondition, Long cursorId) {
+        if(cursorId == null) return null;
+
+        if(sortCondition.equals(FavoriteInfoSortCondition.TIME)) return favoritePkInfo.id.lt(cursorId);
+        throw new BusinessException(BaseResponseStatus.INVALID_ENUM);
     }
 
     public OrderSpecifier getSortCondition(FavoriteInfoSortCondition sortCondition) {

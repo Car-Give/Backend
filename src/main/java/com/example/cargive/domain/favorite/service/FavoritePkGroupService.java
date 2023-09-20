@@ -21,10 +21,11 @@ public class FavoritePkGroupService {
 
     // 정렬 기준을 통해서 즐겨찾기 그룹들을 조회
     @Transactional(readOnly = true)
-    public FavoriteQueryResponse<FavoritePkGroupResponse> findFavoriteGroups(Long memberId, String sortBy, int page) {
+    public FavoriteQueryResponse<FavoritePkGroupResponse> findFavoriteGroups(Long memberId, String sortBy,
+                                                                             Long cursorId) {
         FavoriteGroupSortCondition sortCondition = FavoriteGroupSortCondition.from(sortBy);
 
-        return getQueryResponse(sortCondition, memberId, page);
+        return getQueryResponse(sortCondition, memberId, cursorId);
     }
 
     // 주차장 즐겨찾기 그룹 생성
@@ -59,9 +60,9 @@ public class FavoritePkGroupService {
 
     // 정렬 기준에 따라서 데이터를 조회하는 메서드
     private FavoriteQueryResponse<FavoritePkGroupResponse> getQueryResponse(FavoriteGroupSortCondition sortCondition,
-                                                                            Long memberId, int page) {
+                                                                            Long memberId, Long cursorId) {
         FavoriteQueryResponse<FavoritePkGroupResponse> responseData =
-                favoritesRepository.getMyFavoritePkGroup(sortCondition, memberId, page);
+                favoritesRepository.getMyFavoritePkGroup(sortCondition, memberId, cursorId);
 
         if(!responseData.getFavoriteList().isEmpty()) return responseData;
         throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);

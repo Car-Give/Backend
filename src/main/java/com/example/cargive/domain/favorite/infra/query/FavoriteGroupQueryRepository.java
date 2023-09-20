@@ -7,5 +7,5 @@ import com.example.cargive.domain.favorite.infra.query.dto.FavoriteQueryResponse
 public interface FavoriteGroupQueryRepository {
     // 즐겨찾기 그룹을 조회(최신순, 제목순)
     FavoriteQueryResponse<FavoritePkGroupResponse> getMyFavoritePkGroup(FavoriteGroupSortCondition sortCondition,
-                                                                              Long memberId, int page);
+                                                                              Long memberId, Long cursorId);
 }
