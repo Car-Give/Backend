@@ -20,8 +20,7 @@ public class FavoritePkGroupController {
     public BaseResponse<FavoriteQueryResponse> getFavoriteGroups(@RequestParam Long memberId,
                                                                  @RequestParam String sortBy,
                                                                  @RequestParam int page) {
-        return new BaseResponse<>(BaseResponseStatus.SUCCESS,
-                favoritePkGroupService.findFavoriteGroups(memberId, sortBy, page));
+        return new BaseResponse<>(favoritePkGroupService.findFavoriteGroups(memberId, sortBy, page));
     }
 
     @PostMapping // 즐겨찾기 그룹 생성

@@ -18,8 +18,8 @@ public class FavoritePkInfoController {
                                                                   @RequestParam String sortBy,
                                                                   @RequestParam Long memberId,
                                                                   @RequestParam int page) {
-        return new BaseResponse<>(BaseResponseStatus.SUCCESS,
-                favoritePkInfoService.getFavoriteInfos(memberId, sortBy, favoriteGroupId, page));
+        return new BaseResponse<>(favoritePkInfoService
+                .getFavoriteInfos(memberId, sortBy, favoriteGroupId, page));
     }
 
     @PostMapping("/{favoriteGroupId}") // 주차장 즐겨찾기 등록
