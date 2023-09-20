@@ -1,0 +1,49 @@
+= QUESTION 질문 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 질문 생성
+=== 1. 질문 생성에 성공한다
+==== HTTP Request
+include::{snippets}/Question/Save/Success/http-request.adoc[]
+Query String
+include::{snippets}/Question/Save/Success/query-parameters.adoc[]
+Request Body
+include::{snippets}/Question/Save/Success/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/Question/Save/Success/http-response.adoc[]
+include::{snippets}/Question/Save/Success/response-fields.adoc[]
+
+== 질문 삭제
+=== 1. 유효하지 않은 질문 ID를 입력받으면 질문 삭제에 실패한다
+==== HTTP Request
+include::{snippets}/Question/Delete/Failure/Case1/http-request.adoc[]
+Path Variable
+include::{snippets}/Question/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Question/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/Question/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 사용자가 작성한 질문이 아니면 질문 삭제에 실패한다
+==== HTTP Request
+include::{snippets}/Question/Delete/Failure/Case2/http-request.adoc[]
+Path Variable
+include::{snippets}/Question/Delete/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Question/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/Question/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. 질문 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/Question/Delete/Success/http-request.adoc[]
+Path Variable
+include::{snippets}/Question/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Question/Delete/Success/http-response.adoc[]
