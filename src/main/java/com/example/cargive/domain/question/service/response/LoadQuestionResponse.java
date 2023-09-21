@@ -1,4 +1,4 @@
-package com.example.cargive.domain.question.controller.dto.response;
+package com.example.cargive.domain.question.service.response;
 
 import lombok.Builder;
 

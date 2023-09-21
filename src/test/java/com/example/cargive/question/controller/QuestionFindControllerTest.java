@@ -1,7 +1,7 @@
 package com.example.cargive.question.controller;
 
 import com.example.cargive.common.ControllerTest;
-import com.example.cargive.domain.question.controller.dto.response.LoadQuestionResponse;
+import com.example.cargive.domain.question.service.response.LoadQuestionResponse;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import org.junit.jupiter.api.DisplayName;
