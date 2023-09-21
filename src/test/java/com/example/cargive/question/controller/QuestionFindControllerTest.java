@@ -218,7 +218,7 @@ public class QuestionFindControllerTest extends ControllerTest {
                                     preprocessResponse(prettyPrint()),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 ID"),
-                                            parameterWithName("lastQuestionId").description("질문 ID")
+                                            parameterWithName("lastQuestionId").description("마지막 질문 ID(미입력시 첫 페이지)")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -269,7 +269,7 @@ public class QuestionFindControllerTest extends ControllerTest {
                                     preprocessResponse(prettyPrint()),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 ID"),
-                                            parameterWithName("lastQuestionId").description("질문 ID")
+                                            parameterWithName("lastQuestionId").description("마지막 질문 ID(미입력시 첫 페이지)")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
