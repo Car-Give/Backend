@@ -4,6 +4,7 @@ import com.example.cargive.domain.question.controller.dto.request.SaveQuestionRe
 import com.example.cargive.domain.question.service.QuestionService;
 import com.example.cargive.global.base.BaseResponse;
 import com.example.cargive.global.base.BaseResponseStatus;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<BaseResponse> saveQuestion(@RequestParam Long memberId,
-                                                     @RequestBody SaveQuestionRequest saveQuestionRequest) {
+                                                     @RequestBody @Valid SaveQuestionRequest saveQuestionRequest) {
         questionService.saveQuestion(memberId, saveQuestionRequest);
         return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.CREATED);
     }
