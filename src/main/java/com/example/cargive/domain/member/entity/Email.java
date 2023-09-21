@@ -1,7 +1,7 @@
 package com.example.cargive.domain.member.entity;
 
-import com.example.cargive.domain.member.exception.MemberErrorStatus;
 import com.example.cargive.global.base.BaseException;
+import com.example.cargive.global.base.BaseResponseStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -32,9 +32,9 @@ public class Email {
         return new Email(value);
     }
 
-    private static void validateEmailPattern(String value) throws BaseException {
+    private static void validateEmailPattern(String value) {
         if (isNotValidPattern(value)) {
-            throw new BaseException(MemberErrorStatus.INVALID_EMAIL_FORMAT);
+            throw new BaseException(BaseResponseStatus.INVALID_EMAIL_FORMAT);
         }
     }
 

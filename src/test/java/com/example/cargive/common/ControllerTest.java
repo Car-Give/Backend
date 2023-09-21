@@ -1,11 +1,16 @@
 package com.example.cargive.common;
 
+import com.example.cargive.domain.question.controller.QuestionController;
+import com.example.cargive.domain.question.controller.QuestionFindController;
+import com.example.cargive.domain.question.service.QuestionFindService;
+import com.example.cargive.domain.question.service.QuestionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
@@ -17,7 +22,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(value = {})
+@WebMvcTest(value = {
+        QuestionController.class,
+        QuestionFindController.class,
+})
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs
 public abstract class ControllerTest {
@@ -26,6 +34,12 @@ public abstract class ControllerTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @MockBean
+    protected QuestionService questionService;
+
+    @MockBean
+    protected QuestionFindService questionFindService;
 
     @BeforeEach
     void setUp(WebApplicationContext context, RestDocumentationContextProvider provider) {

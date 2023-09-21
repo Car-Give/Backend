@@ -1,0 +1,43 @@
+= QUESTION 질문 조회 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 질문 조회
+=== 1. 유효하지 않은 질문 ID를 입력받으면 질문 조회에 실패한다
+==== HTTP Request
+include::{snippets}/QuestionFind/GetDetail/Failure/Case1/http-request.adoc[]
+Path Variable
+include::{snippets}/QuestionFind/GetDetail/Failure/Case1/path-parameters.adoc[]
+Query String
+include::{snippets}/QuestionFind/GetDetail/Failure/Case1/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/QuestionFind/GetDetail/Failure/Case1/http-response.adoc[]
+include::{snippets}/QuestionFind/GetDetail/Failure/Case1/response-fields.adoc[]
+
+=== 2. 사용자가 작성한 질문이 아니면 질문 조회에 실패한다
+==== HTTP Request
+include::{snippets}/QuestionFind/GetDetail/Failure/Case2/http-request.adoc[]
+Path Variable
+include::{snippets}/QuestionFind/GetDetail/Failure/Case2/path-parameters.adoc[]
+Query String
+include::{snippets}/QuestionFind/GetDetail/Failure/Case2/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/QuestionFind/GetDetail/Failure/Case2/http-response.adoc[]
+include::{snippets}/QuestionFind/GetDetail/Failure/Case2/response-fields.adoc[]
+
+=== 3. 질문 조회에 성공한다
+==== HTTP Request
+include::{snippets}/QuestionFind/GetDetail/Success/http-request.adoc[]
+Path Variable
+include::{snippets}/QuestionFind/GetDetail/Success/path-parameters.adoc[]
+Query String
+include::{snippets}/QuestionFind/GetDetail/Success/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/QuestionFind/GetDetail/Success/http-response.adoc[]
+include::{snippets}/QuestionFind/GetDetail/Success/response-fields.adoc[]
