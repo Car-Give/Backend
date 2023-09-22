@@ -36,6 +36,7 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
 
     // Favorite
     FAVORITE_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "F001", "존재하지 않는 즐겨찾기 입니다."),
+    NOT_FOUND_SORT_CONDITION(HttpStatus.NOT_FOUND, "F002", "지원하지 않는 정렬 방식입니다."),
 
     // ParkingLot
     PARKING_LOT_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "P001", "존재하지 않는 주차장 입니다."),

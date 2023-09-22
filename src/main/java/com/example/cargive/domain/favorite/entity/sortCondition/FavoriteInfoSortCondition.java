@@ -1,7 +1,7 @@
 package com.example.cargive.domain.favorite.entity.sortCondition;
 
-import com.example.cargive.domain.favorite.exception.FavoriteErrorStatus;
 import com.example.cargive.global.base.BaseException;
+import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.template.EnumStandard;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ public enum FavoriteInfoSortCondition implements EnumStandard {
             return Arrays.stream(values())
                     .filter(sortCondition -> sortCondition.value.equals(value))
                     .findFirst()
-                    .orElseThrow(() -> new BaseException(FavoriteErrorStatus.NOT_FOUND_SORT_CONDITION));
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_SORT_CONDITION));
         } catch(BaseException e) {
             throw new RuntimeException();
         }
