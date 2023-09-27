@@ -1,7 +1,12 @@
 package com.example.cargive.common;
 
+import com.example.cargive.domain.car.entity.CarRepository;
+import com.example.cargive.domain.favorite.entity.repository.FavoritePkInfoRepository;
+import com.example.cargive.domain.favorite.entity.repository.FavoriteRepository;
 import com.example.cargive.domain.member.repository.MemberRepository;
+import com.example.cargive.domain.parkingLot.entity.ParkingLotRepository;
 import com.example.cargive.domain.question.entity.repository.QuestionRepository;
+import com.example.cargive.domain.tag.entity.TagRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +23,21 @@ public class ServiceTest {
 
     @Autowired
     protected QuestionRepository questionRepository;
+
+    @Autowired
+    protected TagRepository tagRepository;
+
+    @Autowired
+    protected CarRepository carRepository;
+
+    @Autowired
+    protected FavoriteRepository favoriteRepository;
+
+    @Autowired
+    protected FavoritePkInfoRepository favoritePkInfoRepository;
+
+    @Autowired
+    protected ParkingLotRepository parkingLotRepository;
 
     @BeforeEach
     void setUp() {
