@@ -41,6 +41,9 @@ public class Car extends BaseEntity {
     @Column(nullable = false)
     private String imageUrl; // 자동차 이미지 URL을 저장하기 위한 컬럼
 
+    @Column(nullable = false)
+    private boolean isFavorite; // 자동차의 즐겨찾기 유무를 저장하기 위한 컬럼
+
     @Convert(converter = Status.StatusConverter.class)
     private Status status; // 데이터의 상태를 관리하기 위한 Enum 필드
 
@@ -61,7 +64,49 @@ public class Car extends BaseEntity {
         this.recentCheck = recentCheck;
         this.mileage = mileage;
         this.imageUrl = imageUrl;
+        this.isFavorite = false;
         this.status = Status.NORMAL;
         this.member = member;
+    }
+
+    // 데이터의 상태를 변경하기 위한 메서드
+    public void deleteEntity() {
+        this.status = Status.EXPIRED;
+    }
+
+    // 데이터의 상태를 변경하기 위한 메서드
+    public void favoriteEntity() {
+        this.isFavorite = true;
+    }
+
+    // 데이터의 수정을 위한 메서드
+    public void editInfo(LocalDate recentCheck, Long mileage, String imageUrl, List<Tag> addedList, List<Tag> deleteList) {
+        this.recentCheck = recentCheck;
+        this.mileage = mileage;
+        editImageUrl(imageUrl);
+        manageTagConnection(addedList, deleteList);
+    }
+
+    // Tag Entity와 연관 관계를 맺기 위한 메서드
+    public void addTag(Tag tag) {
+        if(tag.getCar() == null) tag.initCar(this);
+        this.tagList.add(tag);
+    }
+
+    // Tag Entity와의 연관 관계를 지우기 위한 메서드
+    public void removeTag(Tag tag) {
+        this.tagList.remove(tag);
+    }
+
+    // 이미지 접근 URL을 수정하기 위한 메서드
+    private void editImageUrl(String imageUrl) {
+        if(imageUrl.isBlank() || imageUrl.isEmpty()) return;
+        this.imageUrl = imageUrl;
+    }
+
+    // Car Entity 수정시, 새롭게 추가되거나 삭제되는 차량 특징 카드와의 연관 관계를 관리하기 위한 메서드
+    private void manageTagConnection(List<Tag> addedList, List<Tag> deletedList) {
+        if(!deletedList.isEmpty()) this.tagList.removeAll(deletedList);
+        if(!addedList.isEmpty()) this.tagList.addAll(addedList);
     }
 }
