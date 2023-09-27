@@ -17,4 +17,10 @@ public class QuestionFindController {
                                                      @PathVariable Long questionId) {
         return BaseResponse.toResponseEntityContainsResult(questionFindService.loadQuestion(memberId, questionId));
     }
+
+    @GetMapping("/page")
+    public ResponseEntity<BaseResponse> getListOfQuestion(@RequestParam Long memberId,
+                                                          @RequestParam(value = "lastQuestionId", defaultValue = "-1", required = false) Long questionId) {
+        return BaseResponse.toResponseEntityContainsResult(questionFindService.getListOfQuestion(memberId, questionId));
+    }
 }

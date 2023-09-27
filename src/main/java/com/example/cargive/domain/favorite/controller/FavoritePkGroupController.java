@@ -18,10 +18,9 @@ public class FavoritePkGroupController {
 
     @GetMapping // 정렬 기준에 따른 즐겨찾기 그룹 조회
     public ResponseEntity<BaseResponse> getFavoriteGroups(@RequestParam Long memberId,
-                                            @RequestParam String sortBy,
-                                            @RequestParam Long cursorId) {
-        return BaseResponse.toResponseEntityContainsResult(
-                favoritePkGroupService.findFavoriteGroups(memberId, sortBy, cursorId));
+                                                          @RequestParam String sortBy,
+                                                          @RequestParam Long cursorId) {
+        return BaseResponse.toResponseEntityContainsResult(favoritePkGroupService.findFavoriteGroups(memberId, sortBy, cursorId));
     }
 
     @PostMapping // 즐겨찾기 그룹 생성

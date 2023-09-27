@@ -15,11 +15,11 @@ public class FavoritePkInfoController {
 
     @GetMapping("/{favoriteGroupId}") // 즐겨찾기된 주차장 조회
     public ResponseEntity<BaseResponse> getFavoritePkInfos(@PathVariable Long favoriteGroupId,
-                                             @RequestParam String sortBy,
-                                             @RequestParam Long memberId,
-                                             @RequestParam Long cursorId) {
-        return BaseResponse.toResponseEntityContainsResult(
-                favoritePkInfoService.getFavoriteInfos(memberId, sortBy, favoriteGroupId, cursorId));
+                                                           @RequestParam String sortBy,
+                                                           @RequestParam Long memberId,
+                                                           @RequestParam Long cursorId) {
+        return BaseResponse.toResponseEntityContainsResult(favoritePkInfoService
+                .getFavoriteInfos(memberId, sortBy, favoriteGroupId, cursorId));
     }
 
     @PostMapping("/{favoriteGroupId}") // 주차장 즐겨찾기 등록
