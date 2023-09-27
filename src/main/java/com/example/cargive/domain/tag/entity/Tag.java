@@ -29,9 +29,18 @@ public class Tag extends BaseEntity {
     private Status status; // 데이터의 상태를 관리하기 위한 Enum 필드
 
     @Builder
-    public Tag(String name, Car car) {
+    public Tag(String name) {
         this.name = name;
-        this.car = car;
         this.status = Status.NORMAL;
+    }
+
+    // Car Entity와 연관 관계를 맺기 위한 메서드
+    public void initCar(Car car) {
+        this.car = car;
+    }
+
+    // 데이터의 상태를 변경하기 위한 메서드
+    public void deleteEntity() {
+        this.status = Status.EXPIRED;
     }
 }
