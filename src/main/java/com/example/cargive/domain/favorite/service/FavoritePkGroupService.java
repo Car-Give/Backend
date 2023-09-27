@@ -8,8 +8,9 @@ import com.example.cargive.domain.favorite.entity.repository.FavoriteRepository;
 import com.example.cargive.domain.favorite.entity.sortCondition.FavoriteGroupSortCondition;
 import com.example.cargive.domain.favorite.infra.query.dto.FavoriteQueryResponse;
 import com.example.cargive.domain.member.entity.Member;
+import com.example.cargive.domain.member.repository.MemberRepository;
+import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
-import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FavoritePkGroupService {
     private final FavoriteRepository favoritesRepository;
+    private final MemberRepository memberRepository;
 
     // 정렬 기준을 통해서 즐겨찾기 그룹들을 조회
     @Transactional(readOnly = true)
@@ -65,12 +67,12 @@ public class FavoritePkGroupService {
                 favoritesRepository.getMyFavoritePkGroup(sortCondition, memberId, cursorId);
 
         if(!responseData.getFavoriteList().isEmpty()) return responseData;
-        throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
+        throw new BaseException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
     }
 
     // 즐겨찾기 그룹의 이름을 변경하는 메소드
     private void editFavoriteGroupName(Favorite favorite, FavoriteGroupEditRequest request) {
-        if(favorite instanceof FavoriteCar) throw new BusinessException(BaseResponseStatus.INPUT_INVALID_VALUE);
+        if(favorite instanceof FavoriteCar) throw new BaseException(BaseResponseStatus.INPUT_INVALID_VALUE);
         ((FavoritePkGroup)favorite).changeGroupName(request.name());
     }
 
@@ -79,17 +81,18 @@ public class FavoritePkGroupService {
         Member member = favoritePkGroup.getMember();
 
         if(!loginMember.getLoginId().equals(member.getLoginId()))
-            throw new BusinessException(BaseResponseStatus.INPUT_INVALID_VALUE);
+            throw new BaseException(BaseResponseStatus.INPUT_INVALID_VALUE);
     }
 
     // 별도의 MemberService가 구현되어 있지 않기 때문에 임시 메소드 형성, 추후에 변경 예정
     private Member getMember(Long memberId) {
-        return null;
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.MEMBER_NOT_FOUND_ERROR));
     }
 
     // PK값을 통해서 Favorite Entity를 가져오는 메소드
     private Favorite getFavoriteGroup(Long favoriteGroupId) {
         return favoritesRepository.findById(favoriteGroupId)
-                .orElseThrow(() -> new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
     }
 }

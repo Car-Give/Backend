@@ -4,8 +4,8 @@ import com.example.cargive.domain.parkingLot.controller.dto.request.ParkingLotRe
 import com.example.cargive.domain.parkingLot.controller.dto.response.ParkingLotResponse;
 import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import com.example.cargive.domain.parkingLot.entity.ParkingLotRepository;
+import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
-import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +39,6 @@ public class ParkingLotService {
     // Entity의 PK값을 통해 데이터를 조회하는 메서드, 일치하는 데이터가 존재하지 않을 경우 오류 반환
     private ParkingLot getParkingLotById(Long parkingLotId) {
         return parkingLotRepository.findById(parkingLotId)
-                .orElseThrow(() -> new BusinessException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR));
     }
 }

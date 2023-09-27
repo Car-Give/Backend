@@ -5,6 +5,7 @@ import com.example.cargive.domain.favorite.entity.FavoriteCar;
 import com.example.cargive.domain.favorite.entity.FavoritePkGroup;
 import com.example.cargive.domain.favorite.entity.repository.FavoriteRepository;
 import com.example.cargive.domain.member.entity.Member;
+import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +21,9 @@ public class FavoritePkGroupFindService {
 
     public FavoritePkGroup findFavoriteById(Member member, Long favoriteGroupId) {
         Favorite findValue = favoriteRepository.findById(favoriteGroupId)
-                .orElseThrow(() -> new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
 
-        if(findValue instanceof FavoriteCar) throw new BusinessException(BaseResponseStatus.INPUT_INVALID_VALUE);
+        if(findValue instanceof FavoriteCar) throw new BaseException(BaseResponseStatus.FAVORITE_TYPE_ERROR);
         checkMemberValidation(member, (FavoritePkGroup) findValue);
 
         return (FavoritePkGroup)findValue;
@@ -30,6 +31,6 @@ public class FavoritePkGroupFindService {
 
     private void checkMemberValidation(Member member, FavoritePkGroup favoritePkGroup) {
         if(!favoritePkGroup.getMember().getName().equals(member.getName()))
-            throw new BusinessException(BaseResponseStatus.INPUT_INVALID_VALUE);
+            throw new BaseException(BaseResponseStatus.FAVORITE_MEMBER_NOT_MATCH_ERROR);
     }
 }
