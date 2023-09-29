@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,12 +17,13 @@ public class DatabaseCleaner {
 
     public DatabaseCleaner(final EntityManager entityManager) {
         this.entityManager = entityManager;
-        this.tableNames = entityManager.getMetamodel()
-                .getEntities()
+        this.tableNames = entityManager.getMetamodel().getEntities()
                 .stream()
-                .map(Type::getJavaType)
-                .map(javaType -> javaType.getAnnotation(Table.class))
-                .map(Table::name)
+                .map(javaType -> {
+                    Table tableAnnotation = javaType.getJavaType().getAnnotation(Table.class);
+                    return (tableAnnotation != null) ? tableAnnotation.name() : null;
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

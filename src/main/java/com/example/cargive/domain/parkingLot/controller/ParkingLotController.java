@@ -1,7 +1,6 @@
 package com.example.cargive.domain.parkingLot.controller;
 
 import com.example.cargive.domain.parkingLot.controller.dto.request.ParkingLotRequest;
-import com.example.cargive.domain.parkingLot.controller.dto.response.ParkingLotResponse;
 import com.example.cargive.domain.parkingLot.service.ParkingLotService;
 import com.example.cargive.global.base.BaseResponse;
 import com.example.cargive.global.base.BaseResponseStatus;
@@ -18,8 +17,7 @@ public class ParkingLotController {
 
     @GetMapping("/{parkingLotId}") // 주차장 단일 조회
     public ResponseEntity<BaseResponse> findParkingLot(@PathVariable Long parkingLotId) {
-        ParkingLotResponse findPkLot = parkingLotService.findParkingLot(parkingLotId);
-        return BaseResponse.toResponseEntityContainsResult(findPkLot);
+        return BaseResponse.toResponseEntityContainsResult(parkingLotService.findParkingLot(parkingLotId));
     }
 
     @PostMapping // 주차장 추가
@@ -31,6 +29,6 @@ public class ParkingLotController {
     @DeleteMapping("/{parkingLotId}") // 주차장 삭제
     public ResponseEntity<BaseResponse> deleteParkingLot(@PathVariable Long parkingLotId) {
         parkingLotService.deleteParkingLot(parkingLotId);
-        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
+        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.DELETED);
     }
 }

@@ -6,8 +6,10 @@ import com.example.cargive.domain.favorite.entity.repository.FavoritePkInfoRepos
 import com.example.cargive.domain.favorite.entity.sortCondition.FavoriteInfoSortCondition;
 import com.example.cargive.domain.favorite.infra.query.dto.FavoriteQueryResponse;
 import com.example.cargive.domain.member.entity.Member;
+import com.example.cargive.domain.member.repository.MemberRepository;
 import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import com.example.cargive.domain.parkingLot.service.ParkingLotFindService;
+import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class FavoritePkInfoService {
     private final FavoritePkGroupFindService favoritePkGroupFindService;
     private final FavoritePkInfoRepository favoritePkInfoRepository;
     private final ParkingLotFindService parkingLotFindService;
+    private final MemberRepository memberRepository;
 
     // 특정 즐겨찾기 그룹에 속한 주차장 데이터를 조회
     @Transactional(readOnly = true)
@@ -64,7 +67,7 @@ public class FavoritePkInfoService {
                 favoritePkInfoRepository.getMyFavoritePkInfo(sortCondition, memberId, favoriteGroupId, cursorId);
 
         if(!responseData.getFavoriteList().isEmpty()) return responseData;
-        throw new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
+        throw new BaseException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR);
     }
 
     // 현재 로그인하고있는 사용자의 정보와 즐겨찾기 그룹을 소유하고 있는 사용자의 정보를 비교
@@ -86,7 +89,8 @@ public class FavoritePkInfoService {
 
     // 별도의 사용자 조회 메서드가 구현되어 있지 않기 때문에 임시로 구현, 추후에 변동 예정
     private Member getMember(Long memberId) {
-        return null;
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.MEMBER_NOT_FOUND_ERROR));
     }
 
     // 생성자를 통해서 Entity를 생성한 뒤, 반환
@@ -104,7 +108,7 @@ public class FavoritePkInfoService {
     // Entity의 PK를 통하여 데이터 조회
     private FavoritePkInfo getFavoriteInfoById(Long favoriteInfoId) {
         return favoritePkInfoRepository.findById(favoriteInfoId)
-                .orElseThrow(() -> new BusinessException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR));
     }
 
     // Entity의 PK를 통하여 데이터 조회

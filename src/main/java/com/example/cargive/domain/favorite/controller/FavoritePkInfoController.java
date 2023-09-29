@@ -34,6 +34,6 @@ public class FavoritePkInfoController {
     public ResponseEntity<BaseResponse> deleteFavoritePkInfo(@RequestParam(name = "memberId") Long memberId,
                                                                  @PathVariable Long favoriteInfoId) {
         favoritePkInfoService.deleteFavoriteInfo(memberId, favoriteInfoId);
-        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
+        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.DELETED);
     }
 }

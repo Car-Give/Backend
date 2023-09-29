@@ -37,6 +37,8 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     // Favorite
     FAVORITE_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "F001", "존재하지 않는 즐겨찾기 입니다."),
     NOT_FOUND_SORT_CONDITION(HttpStatus.NOT_FOUND, "F002", "지원하지 않는 정렬 방식입니다."),
+    FAVORITE_TYPE_ERROR(HttpStatus.NOT_FOUND, "F003", "일치하지 않는 타입의 데이터입니다."),
+    FAVORITE_MEMBER_NOT_MATCH_ERROR(HttpStatus.BAD_REQUEST, "F004", "생성자와 이용자의 정보가 일치하지 않습니다."),
 
     // ParkingLot
     PARKING_LOT_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "P001", "존재하지 않는 주차장 입니다."),
@@ -45,6 +47,16 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     QUESTION_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "Q001", "존재하지 않는 질문 입니다."),
     QUESTION_MEMBER_NOT_MATCH_ERROR(HttpStatus.BAD_REQUEST, "Q002", "현재 사용자가 작성한 질문이 아닙니다."),
     QUESTION_CATEGORY_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "Q003", "존재하지 않는 질문 카테고리 입니다."),
+
+    // Car
+    CAR_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "C001", "존재하지 않는 자동차입니다."),
+    CAR_MEMBER_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "C002", "생성자와 이용자의 정보가 일치하지 않습니다."),
+    CAR_LIST_EMPTY_ERROR(HttpStatus.NOT_FOUND, "C003", "차량 정보가 존재하지 않습니다."),
+
+    // Tag
+    TAG_LIST_EMPTY_ERROR(HttpStatus.NOT_FOUND, "T001", "일치하는 차량 특징 카드가 존재하지 않습니다."),
+    TAG_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "T002", "존재하지 않는 차량 특징 카드입니다."),
+    CAR_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "T003", "차량 특징 카드에 등록된 정보와 일치하지 않습니다."),
 
     /**
      * 500 : 응답 실패

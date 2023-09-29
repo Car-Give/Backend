@@ -42,6 +42,6 @@ public class FavoritePkGroupController {
     public ResponseEntity<BaseResponse> deleteFavoriteGroup(@RequestParam(name = "memberId") Long memberId,
                                                                 @PathVariable Long favoriteGroupId) {
         favoritePkGroupService.deleteFavoriteGroup(memberId, favoriteGroupId);
-        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
+        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.DELETED);
     }
 }

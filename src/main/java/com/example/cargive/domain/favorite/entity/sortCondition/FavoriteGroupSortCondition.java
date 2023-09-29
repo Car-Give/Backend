@@ -18,13 +18,9 @@ public enum FavoriteGroupSortCondition implements EnumStandard {
     private final String value;
 
     public static FavoriteGroupSortCondition from(String value) {
-        try {
-            return Arrays.stream(values())
-                    .filter(sortCondition -> sortCondition.value.equals(value))
-                    .findFirst()
-                    .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_SORT_CONDITION));
-        } catch(BaseException e) {
-            throw new RuntimeException();
-        }
+        return Arrays.stream(values())
+                .filter(sortCondition -> sortCondition.value.equals(value))
+                .findFirst()
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NOT_FOUND_SORT_CONDITION));
     }
 }

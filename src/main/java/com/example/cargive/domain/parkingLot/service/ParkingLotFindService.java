@@ -2,6 +2,7 @@ package com.example.cargive.domain.parkingLot.service;
 
 import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import com.example.cargive.domain.parkingLot.entity.ParkingLotRepository;
+import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import com.example.cargive.global.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,6 @@ public class ParkingLotFindService {
     // PK값을 통하여 Entity를 조회, 존재하지 않을 경우 오류를 반환
     public ParkingLot findParkingLotById(Long parkingLotId) {
         return parkingLotRepository.findById(parkingLotId)
-                .orElseThrow(() -> new BusinessException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR));
     }
 }
