@@ -5,12 +5,12 @@ import com.example.cargive.domain.favorite.entity.FavoritePkInfo;
 import com.example.cargive.domain.member.entity.Member;
 import com.example.cargive.domain.parkingLot.entity.ParkingLot;
 import com.example.cargive.global.template.Status;
-import com.example.cargive.member.fixture.MemberFixture;
 import com.example.cargive.parkinglot.fixture.ParkingLotFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.example.cargive.member.fixture.MemberFixture.WIZ;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +23,7 @@ public class FavoritePkGroupTest {
 
     @BeforeEach
     public void initTest() {
-        member = MemberFixture.MEMBER_1.createEntity();
+        member = WIZ.toMember();
         parkingLot = ParkingLotFixture.PARKING_LOT_1.createEntity();
         favoritePkGroup = new FavoritePkGroup("Test Group", member);
         favoritePkInfo = new FavoritePkInfo(favoritePkGroup, parkingLot);

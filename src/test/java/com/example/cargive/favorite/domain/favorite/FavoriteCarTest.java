@@ -5,11 +5,11 @@ import com.example.cargive.domain.car.entity.Car;
 import com.example.cargive.domain.favorite.entity.FavoriteCar;
 import com.example.cargive.domain.member.entity.Member;
 import com.example.cargive.global.template.Status;
-import com.example.cargive.member.fixture.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.example.cargive.member.fixture.MemberFixture.WIZ;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +21,7 @@ public class FavoriteCarTest {
 
     @BeforeEach
     public void initTest() {
-        member = MemberFixture.MEMBER_1.createEntity();
+        member = WIZ.toMember();
         car = CarFixture.CAR_1.createEntity();
         favoriteCar = new FavoriteCar(member, car);
     }

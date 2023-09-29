@@ -37,8 +37,8 @@ public class FavoriteCarServiceTest extends ServiceTest {
 
     @BeforeEach
     public void initTest() {
-        member = MEMBER_1.createEntity();
-        otherMember = MEMBER_2.createEntity();
+        member = WIZ.toMember();
+        otherMember = ASSAC.toMember();
         car = CAR_1.createEntityWithMember(member);
         otherCar = CAR_2.createEntityWithMember(otherMember);
         favoriteCar = new FavoriteCar(member, car);

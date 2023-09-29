@@ -41,8 +41,8 @@ public class FavoritePkInfoServiceTest extends ServiceTest {
 
     @BeforeEach
     public void initTest() {
-        member = MEMBER_1.createEntity();
-        otherMember = MEMBER_2.createEntity();
+        member = WIZ.toMember();
+        otherMember = ASSAC.toMember();
         parkingLot = PARKING_LOT_1.createEntity();
         favoritePkGroup = new FavoritePkGroup("Test Group", member);
         favoritePkInfo = new FavoritePkInfo(favoritePkGroup, parkingLot);
