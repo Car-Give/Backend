@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MemberFixture {
     WIZ("wiz123", "wiz", "010-0123-4567", "wiz@example.com", Social.KAKAO, null),
+    ASSAC("assac1569", "assac", "010-1234-5678", "assac@example.com", Social.NAVER, null)
     ;
 
     private final String loginId;

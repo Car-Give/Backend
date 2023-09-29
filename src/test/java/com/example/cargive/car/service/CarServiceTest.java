@@ -41,10 +41,10 @@ public class CarServiceTest extends ServiceTest {
 
     @BeforeEach
     public void initTest() {
-        member = MEMBER_1.createEntity();
+        member = WIZ.toMember();
         memberId = memberRepository.save(member).getId();
 
-        otherMember = MEMBER_2.createEntity();
+        otherMember = ASSAC.toMember();
         otherMemberId = memberRepository.save(otherMember).getId();
 
         car = CAR_1.createEntityWithMember(member);

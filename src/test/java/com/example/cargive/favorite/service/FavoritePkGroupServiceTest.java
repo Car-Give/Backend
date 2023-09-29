@@ -33,8 +33,8 @@ public class FavoritePkGroupServiceTest extends ServiceTest {
 
     @BeforeEach
     public void initTest() {
-        member = MEMBER_1.createEntity();
-        otherMember = MEMBER_2.createEntity();
+        member = WIZ.toMember();
+        otherMember = ASSAC.toMember();
         favoritePkGroup = new FavoritePkGroup("TestName", member);
 
         memberId = memberRepository.save(member).getId();

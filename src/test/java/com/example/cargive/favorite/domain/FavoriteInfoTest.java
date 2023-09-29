@@ -22,7 +22,7 @@ public class FavoriteInfoTest {
 
     @BeforeEach
     public void initTest() {
-        member = MEMBER_1.createEntity();
+        member = WIZ.toMember();
         parkingLot = ParkingLotFixture.PARKING_LOT_1.createEntity();
         favoritePkGroup = new FavoritePkGroup("Test Group", member);
         favoritePkInfo = new FavoritePkInfo(favoritePkGroup, parkingLot);
