@@ -4,8 +4,7 @@ import com.example.cargive.common.ControllerTest;
 import com.example.cargive.domain.car.controller.dto.request.CarEditRequest;
 import com.example.cargive.domain.car.controller.dto.request.CarRequest;
 import com.example.cargive.domain.car.controller.dto.response.CarResponse;
-import com.example.cargive.domain.car.infra.dto.CarQueryResponse;
-import com.example.cargive.domain.tag.entity.Tag;
+import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -84,8 +83,7 @@ public class CarControllerTest extends ControllerTest {
         @DisplayName("사용자의 차량 조회에 성공한다")
         public void successGetCarList() throws Exception {
             // given
-            List<CarResponse> response = getCarResponseList(carId);
-            CarQueryResponse<CarResponse> responseData = new CarQueryResponse<>(response);
+            List<CarResponse> responseData = getCarResponseList(carId);
 
             doReturn(responseData)
                     .when(carService)
@@ -100,7 +98,7 @@ public class CarControllerTest extends ControllerTest {
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isOk(),
-                            jsonPath("$.result.carList.size()").value(1))
+                            jsonPath("$.result.size()").value(1))
                     .andDo(
                             document(
                                     "Car/List/Success",
@@ -110,16 +108,16 @@ public class CarControllerTest extends ControllerTest {
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
                                             fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"),
-                                            fieldWithPath("result.carList[0].id").type(JsonFieldType.NUMBER).description("차량 Id"),
-                                            fieldWithPath("result.carList[0].type").type(JsonFieldType.STRING).description("차량 종류"),
-                                            fieldWithPath("result.carList[0].number").type(JsonFieldType.STRING).description("차량 번호"),
-                                            fieldWithPath("result.carList[0].recentCheck").type(JsonFieldType.STRING).description("마지막 점검 일자"),
-                                            fieldWithPath("result.carList[0].mileage").type(JsonFieldType.NUMBER).description("주행 거리"),
-                                            fieldWithPath("result.carList[0].imageUrl").type(JsonFieldType.STRING).description("차량 이미지 접근 URL"),
-                                            fieldWithPath("result.carList[0].tagList").type(JsonFieldType.ARRAY).description("차량 특징 카드 목록"),
-                                            fieldWithPath("result.carList[0].tagList[0].id").type(JsonFieldType.NULL).description("차량 특징 카드 Id"),
-                                            fieldWithPath("result.carList[0].tagList[0].name").type(JsonFieldType.STRING).description("차량 특징 카드 이름"),
-                                            fieldWithPath("result.carList[0].favorite").type(JsonFieldType.BOOLEAN).description("즐겨찾기 여부")
+                                            fieldWithPath("result[0].id").type(JsonFieldType.NUMBER).description("차량 Id"),
+                                            fieldWithPath("result[0].type").type(JsonFieldType.STRING).description("차량 종류"),
+                                            fieldWithPath("result[0].number").type(JsonFieldType.STRING).description("차량 번호"),
+                                            fieldWithPath("result[0].recentCheck").type(JsonFieldType.STRING).description("마지막 점검 일자"),
+                                            fieldWithPath("result[0].mileage").type(JsonFieldType.NUMBER).description("주행 거리"),
+                                            fieldWithPath("result[0].imageUrl").type(JsonFieldType.STRING).description("차량 이미지 접근 URL"),
+                                            fieldWithPath("result[0].tagList").type(JsonFieldType.ARRAY).description("차량 특징 카드 목록"),
+                                            fieldWithPath("result[0].tagList[0].id").type(JsonFieldType.NUMBER).description("차량 특징 카드 Id"),
+                                            fieldWithPath("result[0].tagList[0].name").type(JsonFieldType.STRING).description("차량 특징 카드 이름"),
+                                            fieldWithPath("result[0].favorite").type(JsonFieldType.BOOLEAN).description("즐겨찾기 여부")
                                     )
                             )
                     );
@@ -620,8 +618,8 @@ public class CarControllerTest extends ControllerTest {
 
     private List<CarResponse> getCarResponseList(Long carId) {
         List<CarResponse> responseList = new ArrayList<>();
-        List<Tag> tagList = new ArrayList<>();
-        tagList.add(new Tag("Test1"));
+        List<TagResponse> tagList = new ArrayList<>();
+        tagList.add(new TagResponse(1L, "Test1"));
 
         responseList.add(new CarResponse(carId, CAR_1.getType(), CAR_1.getNumber(), CAR_1.getRecentCheck(),
                 CAR_1.getMileage(), CAR_1.getImageUrl(), CAR_1.isFavorite(), tagList));

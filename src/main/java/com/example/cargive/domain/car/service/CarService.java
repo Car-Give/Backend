@@ -5,7 +5,6 @@ import com.example.cargive.domain.car.controller.dto.request.CarRequest;
 import com.example.cargive.domain.car.controller.dto.response.CarResponse;
 import com.example.cargive.domain.car.entity.Car;
 import com.example.cargive.domain.car.entity.CarRepository;
-import com.example.cargive.domain.car.infra.dto.CarQueryResponse;
 import com.example.cargive.domain.member.entity.Member;
 import com.example.cargive.domain.member.repository.MemberRepository;
 import com.example.cargive.domain.tag.entity.Tag;
@@ -31,7 +30,7 @@ public class CarService {
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
-    public CarQueryResponse<CarResponse> getCarList(Long memberId) {
+    public List<CarResponse> getCarList(Long memberId) {
         return getCarListByMemberId(memberId);
     }
 
@@ -106,10 +105,10 @@ public class CarService {
     }
 
     // 사용자가 등록한 자동차 정보를 조회하는 메서드
-    private CarQueryResponse<CarResponse> getCarListByMemberId(Long memberId) {
-        CarQueryResponse<CarResponse> responseData = carRepository.findCarByMemberId(memberId);
+    private List<CarResponse> getCarListByMemberId(Long memberId) {
+        List<CarResponse> responseData = carRepository.findCarByMemberId(memberId);
 
-        if(responseData.getCarList().isEmpty()) throw new BaseException(BaseResponseStatus.CAR_LIST_EMPTY_ERROR);
+        if(responseData.isEmpty()) throw new BaseException(BaseResponseStatus.CAR_LIST_EMPTY_ERROR);
 
         return responseData;
     }

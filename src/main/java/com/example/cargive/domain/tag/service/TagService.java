@@ -5,12 +5,13 @@ import com.example.cargive.domain.car.service.CarFindService;
 import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
 import com.example.cargive.domain.tag.entity.Tag;
 import com.example.cargive.domain.tag.entity.TagRepository;
-import com.example.cargive.domain.tag.infra.dto.TagQueryResponse;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class TagService {
     private final CarFindService carFindService;
 
     @Transactional(readOnly = true) // Car Entity의 PK값을 통하여, 차량에 등록된 특징 카드를 조회하는 메서드
-    public TagQueryResponse<TagResponse> getTagList(Long carId) {
+    public List<TagResponse> getTagList(Long carId) {
         return getTagListByCar(carId);
     }
 
@@ -56,10 +57,10 @@ public class TagService {
     }
 
     // Car Entity의 PK값을 토대로, 등록된 Tag Entity List를 조회하는 메서드
-    private TagQueryResponse<TagResponse> getTagListByCar(Long carId) {
-        TagQueryResponse<TagResponse> responseData = tagRepository.findTagsByCar(carId);
+    private List<TagResponse> getTagListByCar(Long carId) {
+        List<TagResponse> responseData = tagRepository.findTagsByCar(carId);
 
-        if(responseData.getTagList().isEmpty())
+        if(responseData.isEmpty())
             throw new BaseException(BaseResponseStatus.TAG_LIST_EMPTY_ERROR);
 
         return responseData;
