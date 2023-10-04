@@ -1,5 +1,6 @@
 package com.example.cargive.domain.car.controller.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class CarRequest {
     private String number; // 차 번호
 
     @NotNull(message = "차량을 등록하기 위한 마지막 점검 일자를 입력해주세요")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate recentCheck; // 마지막 점검 일자
 
     @NotNull(message = "차량을 등록하기 위한 주행 거리를 입력해주세요")

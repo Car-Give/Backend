@@ -8,6 +8,8 @@ import com.example.cargive.domain.favorite.controller.FavoritePkInfoController;
 import com.example.cargive.domain.favorite.service.FavoriteCarService;
 import com.example.cargive.domain.favorite.service.FavoritePkGroupService;
 import com.example.cargive.domain.favorite.service.FavoritePkInfoService;
+import com.example.cargive.domain.history.controller.HistoryController;
+import com.example.cargive.domain.history.service.HistoryService;
 import com.example.cargive.domain.parkingLot.controller.ParkingLotController;
 import com.example.cargive.domain.parkingLot.service.ParkingLotService;
 import com.example.cargive.domain.question.controller.QuestionController;
@@ -44,7 +46,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
         ParkingLotController.class,
         FavoritePkInfoController.class,
         FavoritePkGroupController.class,
-        FavoriteCarController.class
+        FavoriteCarController.class,
+        HistoryController.class
 })
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs
@@ -84,6 +87,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected FavoriteCarService favoriteCarService;
+
+    @MockBean
+    protected HistoryService historyService;
 
     @BeforeEach
     void setUp(WebApplicationContext context, RestDocumentationContextProvider provider) {

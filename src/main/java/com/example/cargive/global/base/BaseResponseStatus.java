@@ -58,6 +58,11 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     TAG_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "T002", "존재하지 않는 차량 특징 카드입니다."),
     CAR_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "T003", "차량 특징 카드에 등록된 정보와 일치하지 않습니다."),
 
+    // History
+    HISTORY_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "H001", "일치하는 기록이 존재하지 않습니다."),
+    HISTORY_CAR_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "H002", "차량 정보와 이용 기록 정보가 일치하지 않습니다."),
+    HISTORY_LIST_EMPTY_ERROR(HttpStatus.NOT_FOUND, "H003", "이용 기록이 존재하지 않습니다."),
+
     /**
      * 500 : 응답 실패
      */
