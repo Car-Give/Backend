@@ -13,8 +13,8 @@ java {
     targetCompatibility = '17'
 }
 
-wrapper {
-    gradleVersion = '8.3'
+jar {
+    enabled = false
 }
 
 configurations {
