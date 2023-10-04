@@ -1,5 +1,9 @@
 name: carGive Dev CI/CD
 
+permissions:
+  checks: write
+  pull-requests: write
+
 on:
   pull_request:
   workflow_dispatch: # (2) 수동 실행
