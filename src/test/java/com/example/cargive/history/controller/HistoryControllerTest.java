@@ -1,65 +1,61 @@
-package com.example.cargive.car.controller;
+package com.example.cargive.history.controller;
 
 import com.example.cargive.common.ControllerTest;
-import com.example.cargive.domain.car.controller.dto.request.CarEditRequest;
-import com.example.cargive.domain.car.controller.dto.request.CarRequest;
-import com.example.cargive.domain.car.controller.dto.response.CarResponse;
-import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
+import com.example.cargive.domain.history.controller.dto.HistoryResponse;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static com.example.cargive.car.fixture.CarFixture.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@DisplayName("Car [Controller Layer] -> CarController 테스트")
-public class CarControllerTest extends ControllerTest {
+@DisplayName("History [Controller Layer] -> HistoryController 테스트")
+public class HistoryControllerTest extends ControllerTest {
     @Nested
-    @DisplayName("사용자 차량 정보 조회 API [GET /api/car]")
-    class getCarListTest {
-        private final static String BASE_URL = "/api/car";
-        private final static Long memberId = 1L;
+    @DisplayName("차량 이용 기록 조회 API [GET /api/history/{carId}]")
+    class getHistoryListTest {
+        private final static String BASE_URL = "/api/history/{carId}";
         private final static Long carId = 1L;
+        private final static Long memberId = 1L;
+        private final static Long errorCarId = Long.MAX_VALUE;
+        private final static Long errorMemberId = Long.MAX_VALUE;
 
         @Test
-        @DisplayName("조회한 데이터가 존재하지 않을 경우, 오류를 반환한다")
+        @DisplayName("조회한 결과가 존재하지 않은 경우, 오류를 반환한다")
         public void throwExceptionByEmptyList() throws Exception {
             // given
-            doThrow(new BaseException(BaseResponseStatus.CAR_LIST_EMPTY_ERROR))
-                    .when(carService)
-                    .getCarList(anyLong());
+            doThrow(new BaseException(BaseResponseStatus.HISTORY_LIST_EMPTY_ERROR))
+                    .when(historyService)
+                    .getHistoryList(errorCarId, errorMemberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .get(BASE_URL)
-                    .param("memberId", String.valueOf(memberId));
+                    .get(BASE_URL, errorCarId)
+                    .param("memberId", String.valueOf(errorMemberId));
 
             // then
-            final BaseResponseStatus expectException = BaseResponseStatus.CAR_LIST_EMPTY_ERROR;
+            final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_LIST_EMPTY_ERROR;
 
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -67,9 +63,12 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/List/Failure/Case1",
+                                    "History/List/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("carId").description("차량 ID")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -80,44 +79,44 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("사용자의 차량 조회에 성공한다")
-        public void successGetCarList() throws Exception {
+        @DisplayName("데이터의 조회에 성공한다")
+        public void successGetHistoryList() throws Exception {
             // given
-            List<CarResponse> responseData = getCarResponseList(carId);
+            List<HistoryResponse> responseList = getResponseList();
 
-            doReturn(responseData)
-                    .when(carService)
-                    .getCarList(anyLong());
+            doReturn(responseList)
+                    .when(historyService)
+                    .getHistoryList(carId, memberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .get(BASE_URL)
+                    .get(BASE_URL, carId)
                     .param("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isOk(),
-                            jsonPath("$.result.size()").value(1))
-                    .andDo(
+                            jsonPath("$.result.size()").value(1),
+                            jsonPath("$.result[0].createAt").exists(),
+                            jsonPath("$.result[0].updateAt").exists(),
+                            jsonPath("$.result[0].status").isBoolean()
+                    ).andDo(
                             document(
-                                    "Car/List/Success",
+                                    "History/List/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("carId").description("차량 ID")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
                                             fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"),
-                                            fieldWithPath("result[0].id").type(JsonFieldType.NUMBER).description("차량 Id"),
-                                            fieldWithPath("result[0].type").type(JsonFieldType.STRING).description("차량 종류"),
-                                            fieldWithPath("result[0].number").type(JsonFieldType.STRING).description("차량 번호"),
-                                            fieldWithPath("result[0].recentCheck").type(JsonFieldType.STRING).description("마지막 점검 일자"),
-                                            fieldWithPath("result[0].mileage").type(JsonFieldType.NUMBER).description("주행 거리"),
-                                            fieldWithPath("result[0].imageUrl").type(JsonFieldType.STRING).description("차량 이미지 접근 URL"),
-                                            fieldWithPath("result[0].tagList").type(JsonFieldType.ARRAY).description("차량 특징 카드 목록"),
-                                            fieldWithPath("result[0].tagList[0].id").type(JsonFieldType.NUMBER).description("차량 특징 카드 Id"),
-                                            fieldWithPath("result[0].tagList[0].name").type(JsonFieldType.STRING).description("차량 특징 카드 이름"),
-                                            fieldWithPath("result[0].favorite").type(JsonFieldType.BOOLEAN).description("즐겨찾기 여부")
+                                            fieldWithPath("result[0].id").type(JsonFieldType.NUMBER).description("History Id"),
+                                            fieldWithPath("result[0].createAt").type(JsonFieldType.STRING).description("생성 일자"),
+                                            fieldWithPath("result[0].updateAt").type(JsonFieldType.STRING).description("수정 일자"),
+                                            fieldWithPath("result[0].status").type(JsonFieldType.BOOLEAN).description("종료 여부")
                                     )
                             )
                     );
@@ -125,40 +124,37 @@ public class CarControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("차량 생성 API [POST /api/car]")
-    class createCarTest {
-        private final static String BASE_URL = "/api/car";
+    @DisplayName("이용 시작 API [POST /api/history/{carId}]")
+    class startUsingTest {
+        private final static String BASE_URL = "/api/history/{carId}";
+        private final static Long carId = 1L;
         private final static Long memberId = 1L;
+        private final static Long parkingLotId = 1L;
+        private final static Long errorCarId = Long.MAX_VALUE;
         private final static Long errorMemberId = Long.MAX_VALUE;
+        private final static Long errorParkingLotId = Long.MAX_VALUE;
 
         @Test
         @DisplayName("유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다")
         public void throwExceptionByInvalidMemberId() throws Exception {
             // given
             doThrow(new BaseException(BaseResponseStatus.MEMBER_NOT_FOUND_ERROR))
-                    .when(carService)
-                    .createCar(any(), any(), anyLong());
-
-            CarRequest carRequest = getCarCreateRequest();
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carRequest).getBytes(StandardCharsets.UTF_8));
+                    .when(historyService)
+                    .startUseHistory(carId, parkingLotId, errorMemberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL)
-                    .file(file)
-                    .file(mockRequest)
+                    .post(BASE_URL, carId)
                     .param("memberId", String.valueOf(errorMemberId))
-                    .accept(MediaType.APPLICATION_JSON);
+                    .param("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
+
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -166,9 +162,12 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Create/Failure/Case1",
+                                    "History/Create/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("carId").description("차량 ID")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -177,86 +176,28 @@ public class CarControllerTest extends ControllerTest {
                             )
                     );
         }
-
-        @Test
-        @DisplayName("차량 생성에 성공한다")
-        public void successCreateCar() throws Exception {
-            // given
-            doNothing()
-                    .when(carService)
-                    .createCar(any(), any(), anyLong());
-
-            CarRequest carRequest = getCarCreateRequest();
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carRequest).getBytes(StandardCharsets.UTF_8));
-
-            // when
-            MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL)
-                    .file(file)
-                    .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
-                    .accept(MediaType.APPLICATION_JSON);
-
-            // then
-            mockMvc.perform(request)
-                    .andExpectAll(
-                            status().isCreated()
-                    ).andDo(
-                            document(
-                                    "Car/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
-                            )
-                    );
-        }
-    }
-
-    @Nested
-    @DisplayName("차량 수정 API [PUT /api/car/{carId}]")
-    class editCarTest {
-        private final static String BASE_URL = "/api/car/{carId}";
-        private final static Long carId = 1L;
-        private final static Long memberId = 1L;
-        private final static Long errorCarId = Long.MAX_VALUE;
-        private final static Long errorMemberId = Long.MAX_VALUE;
 
         @Test
         @DisplayName("유효하지 않은 carId로 요청하는 경우, 오류를 반환한다")
         public void throwExceptionByInvalidCarId() throws Exception {
             // given
-            CarEditRequest carEditRequest = getCarEditRequest();
-
             doThrow(new BaseException(BaseResponseStatus.CAR_NOT_FOUND_ERROR))
-                    .when(carService)
-                    .editCar(any(), any(), anyLong(), anyLong());
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carEditRequest).getBytes(StandardCharsets.UTF_8));
+                    .when(historyService)
+                    .startUseHistory(errorCarId, parkingLotId, memberId);
 
             // when
-            final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL, errorCarId)
-                    .file(file)
-                    .file(mockRequest)
+                    .post(BASE_URL, errorCarId)
                     .param("memberId", String.valueOf(memberId))
-                    .with(req -> {
-                        req.setMethod("PUT");
-                        return req;
-                    })
-                    .accept(MediaType.APPLICATION_JSON);
+                    .param("parkingLotId", String.valueOf(parkingLotId));
 
             // then
+            final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
 
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -264,11 +205,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Edit/Failure/Case1",
+                                    "History/Create/Failure/Case2",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("carId").description("차량 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -280,38 +221,26 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다")
-        public void throwExceptionByInvalidMemberId() throws Exception {
+        @DisplayName("유효하지 않은 parkingLotId로 요청하는 경우, 오류를 반환한다")
+        public void throwExceptionByInvalidParkingLotId() throws Exception{
             // given
-            CarEditRequest carEditRequest = getCarEditRequest();
-
-            doThrow(new BaseException(BaseResponseStatus.MEMBER_NOT_FOUND_ERROR))
-                    .when(carService)
-                    .editCar(any(), any(), anyLong(), anyLong());
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carEditRequest).getBytes(StandardCharsets.UTF_8));
+            doThrow(new BaseException(BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR))
+                    .when(historyService)
+                    .startUseHistory(carId, errorParkingLotId, memberId);
 
             // when
-            final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL, carId)
-                    .file(file)
-                    .file(mockRequest)
-                    .param("memberId", String.valueOf(errorMemberId))
-                    .with(req -> {
-                        req.setMethod("PUT");
-                        return req;
-                    })
-                    .accept(MediaType.APPLICATION_JSON);
+                    .post(BASE_URL, carId)
+                    .param("memberId", String.valueOf(memberId))
+                    .param("parkingLotId", String.valueOf(errorParkingLotId));
 
             // then
+            final BaseResponseStatus expectException = BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR;
 
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -319,11 +248,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Edit/Failure/Case2",
+                                    "History/Create/Failure/Case3",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("carId").description("차량 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -335,38 +264,26 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("등록된 사용자의 정보와 이용자의 정보가 일치하지 않는 경우, 오류를 반환한다")
+        @DisplayName("저장된 데이터와 이용자의 정보가 일치하지 않을경우, 오류를 반환한다")
         public void throwExceptionByInvalidMember() throws Exception {
             // given
-            CarEditRequest carEditRequest = getCarEditRequest();
-
             doThrow(new BaseException(BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR))
-                    .when(carService)
-                    .editCar(any(), any(), anyLong(), anyLong());
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carEditRequest).getBytes(StandardCharsets.UTF_8));
+                    .when(historyService)
+                    .startUseHistory(carId, parkingLotId, memberId);
 
             // when
-            final BaseResponseStatus expectException = BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR;
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL, carId)
-                    .file(file)
-                    .file(mockRequest)
+                    .post(BASE_URL, carId)
                     .param("memberId", String.valueOf(memberId))
-                    .with(req -> {
-                        req.setMethod("PUT");
-                        return req;
-                    })
-                    .accept(MediaType.APPLICATION_JSON);
+                    .param("parkingLotId", String.valueOf(parkingLotId));
 
             // then
+            final BaseResponseStatus expectException = BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR;
 
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isConflict(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -374,11 +291,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Edit/Failure/Case3",
+                                    "History/Create/Failure/Case4",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("carId").description("차량 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -390,44 +307,30 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("차량 정보 수정에 성공한다")
-        public void successEditCar() throws Exception {
+        @DisplayName("이용 시작에 성공한다")
+        public void successStartUsing() throws Exception {
             // given
-            CarEditRequest carEditRequest = getCarEditRequest();
-
             doNothing()
-                    .when(carService)
-                    .editCar(any(), any(), anyLong(), anyLong());
-
-            MockMultipartFile file = new MockMultipartFile("file", null,
-                    "multipart/form-data", new byte[]{});
-            MockMultipartFile mockRequest = new MockMultipartFile("request", null,
-                    "application/json", objectMapper.writeValueAsString(carEditRequest).getBytes(StandardCharsets.UTF_8));
+                    .when(historyService)
+                    .startUseHistory(carId, parkingLotId, memberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .multipart(BASE_URL, carId)
-                    .file(file)
-                    .file(mockRequest)
+                    .post(BASE_URL, carId)
                     .param("memberId", String.valueOf(memberId))
-                    .with(req -> {
-                        req.setMethod("PUT");
-                        return req;
-                    })
-                    .accept(MediaType.APPLICATION_JSON);
+                    .param("parkingLotId", String.valueOf(parkingLotId));
 
             // then
-
             mockMvc.perform(request)
-                    .andExpectAll(
-                            status().isOk()
+                    .andExpect(
+                            status().isCreated()
                     ).andDo(
                             document(
-                                    "Car/Edit/Success",
+                                    "History/Create/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("carId").description("차량 ID")
                                     )
                             )
                     );
@@ -435,25 +338,28 @@ public class CarControllerTest extends ControllerTest {
     }
 
     @Nested
-    @DisplayName("차량 삭제 API [DELETE /api/car/{carId}]")
-    class deleteCarTest {
-        private final static String BASE_URL = "/api/car/{carId}";
+    @DisplayName("이용 종료 API [PUT /api/history/{historyId}]")
+    class endUsingTest {
+        private final static String BASE_URL = "/api/history/{historyId}";
         private final static Long carId = 1L;
         private final static Long memberId = 1L;
+        private final static Long historyId = 1L;
         private final static Long errorCarId = Long.MAX_VALUE;
         private final static Long errorMemberId = Long.MAX_VALUE;
+        private final static Long errorHistoryId = Long.MAX_VALUE;
 
         @Test
         @DisplayName("유효하지 않은 carId로 요청하는 경우, 오류를 반환한다")
         public void throwExceptionByInvalidCarId() throws Exception {
             // given
             doThrow(new BaseException(BaseResponseStatus.CAR_NOT_FOUND_ERROR))
-                    .when(carService)
-                    .deleteCar(anyLong(), anyLong());
+                    .when(historyService)
+                    .endUseHistory(historyId, errorCarId, memberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .delete(BASE_URL, errorCarId)
+                    .put(BASE_URL, historyId)
+                    .param("carId", String.valueOf(errorCarId))
                     .param("memberId", String.valueOf(memberId));
 
             // then
@@ -462,6 +368,7 @@ public class CarControllerTest extends ControllerTest {
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -469,11 +376,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Delete/Failure/Case1",
+                                    "History/End/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("historyId").description("이용 기록 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -486,15 +393,16 @@ public class CarControllerTest extends ControllerTest {
 
         @Test
         @DisplayName("유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다")
-        public void throwExceptionByInvalidMemberId() throws Exception{
+        public void throwExceptionByInvalidMemberId() throws Exception {
             // given
             doThrow(new BaseException(BaseResponseStatus.MEMBER_NOT_FOUND_ERROR))
-                    .when(carService)
-                    .deleteCar(anyLong(), anyLong());
+                    .when(historyService)
+                    .endUseHistory(historyId, carId, errorMemberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .delete(BASE_URL, carId)
+                    .put(BASE_URL, historyId)
+                    .param("carId", String.valueOf(carId))
                     .param("memberId", String.valueOf(errorMemberId));
 
             // then
@@ -503,6 +411,7 @@ public class CarControllerTest extends ControllerTest {
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -510,11 +419,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Delete/Failure/Case2",
+                                    "History/End/Failure/Case2",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("historyId").description("이용 기록 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -526,16 +435,60 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("등록된 사용자의 정보와 이용자의 정보가 일치하지 않는 경우, 오류를 반환한다")
-        public void throwExceptionByInvalidMember() throws Exception {
+        @DisplayName("유효하지 않은 historyId로 요청하는 경우, 오류를 반환한다")
+        public void throwExceptionByInvalidHistoryId() throws Exception {
             // given
-            doThrow(new BaseException(BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR))
-                    .when(carService)
-                    .deleteCar(anyLong(), anyLong());
+            doThrow(new BaseException(BaseResponseStatus.HISTORY_NOT_FOUND_ERROR))
+                    .when(historyService)
+                    .endUseHistory(errorHistoryId, carId, memberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .delete(BASE_URL, carId)
+                    .put(BASE_URL, errorHistoryId)
+                    .param("carId", String.valueOf(carId))
+                    .param("memberId", String.valueOf(memberId));
+
+            // then
+            final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_NOT_FOUND_ERROR;
+
+            mockMvc.perform(request)
+                    .andExpectAll(
+                            status().isNotFound(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectException.getStatus().value()),
+                            jsonPath("$.code").exists(),
+                            jsonPath("$.code").value(expectException.getCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectException.getMessage())
+                    ).andDo(
+                            document(
+                                    "History/End/Failure/Case3",
+                                    preprocessRequest(prettyPrint()),
+                                    preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("historyId").description("이용 기록 ID")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
+                            )
+                    );
+        }
+
+        @Test
+        @DisplayName("저장된 데이터와 사용자의 정보가 일치하지 않을 경우, 오류를 반환한다")
+        public void throwExceptionByInvalidMember() throws Exception {
+            // given
+            doThrow(new BaseException(BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR))
+                    .when(historyService)
+                    .endUseHistory(historyId, carId, memberId);
+
+            // when
+            MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
+                    .put(BASE_URL, historyId)
+                    .param("carId", String.valueOf(carId))
                     .param("memberId", String.valueOf(memberId));
 
             // then
@@ -544,6 +497,7 @@ public class CarControllerTest extends ControllerTest {
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isConflict(),
+                            jsonPath("$.status").exists(),
                             jsonPath("$.status").value(expectException.getStatus().value()),
                             jsonPath("$.code").exists(),
                             jsonPath("$.code").value(expectException.getCode()),
@@ -551,11 +505,11 @@ public class CarControllerTest extends ControllerTest {
                             jsonPath("$.message").value(expectException.getMessage())
                     ).andDo(
                             document(
-                                    "Car/Delete/Failure/Case3",
+                                    "History/End/Failure/Case4",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("historyId").description("이용 기록 ID")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -567,62 +521,81 @@ public class CarControllerTest extends ControllerTest {
         }
 
         @Test
-        @DisplayName("차량 정보 삭제에 성공한다")
-        public void successDeleteCar() throws Exception {
+        @DisplayName("저장된 데이터와 차량의 정보가 일치하지 않을 경우, 오류를 반환한다")
+        public void throwExceptionByInvalidCar() throws Exception {
             // given
-            doNothing()
-                    .when(carService)
-                    .deleteCar(anyLong(), anyLong());
+            doThrow(new BaseException(BaseResponseStatus.HISTORY_CAR_NOT_MATCH_ERROR))
+                    .when(historyService)
+                    .endUseHistory(historyId, carId, memberId);
 
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
-                    .delete(BASE_URL, carId)
+                    .put(BASE_URL, historyId)
+                    .param("carId", String.valueOf(carId))
                     .param("memberId", String.valueOf(memberId));
 
             // then
-            mockMvc
-                    .perform(request)
-                    .andExpect(status().isNoContent())
-                    .andDo(
+            final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_CAR_NOT_MATCH_ERROR;
+
+            mockMvc.perform(request)
+                    .andExpectAll(
+                            status().isConflict(),
+                            jsonPath("$.status").exists(),
+                            jsonPath("$.status").value(expectException.getStatus().value()),
+                            jsonPath("$.code").exists(),
+                            jsonPath("$.code").value(expectException.getCode()),
+                            jsonPath("$.message").exists(),
+                            jsonPath("$.message").value(expectException.getMessage())
+                    ).andDo(
                             document(
-                                    "Car/Delete/Success",
+                                    "History/End/Failure/Case5",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 Id")
+                                            parameterWithName("historyId").description("이용 기록 ID")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
+                            )
+                    );
+        }
+
+        @Test
+        @DisplayName("이용 종료에 성공한다")
+        public void successEndUsing() throws Exception {
+            // given
+            doNothing()
+                    .when(historyService)
+                    .endUseHistory(historyId, carId, memberId);
+
+            // when
+            MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
+                    .put(BASE_URL, historyId)
+                    .param("carId", String.valueOf(carId))
+                    .param("memberId", String.valueOf(memberId));
+
+            // then
+            mockMvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andDo(
+                            document(
+                                    "History/End/Success",
+                                    preprocessRequest(prettyPrint()),
+                                    preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("historyId").description("이용 기록 ID")
                                     )
                             )
                     );
         }
     }
 
-    private CarRequest getCarCreateRequest() {
-        CarRequest carRequest = new CarRequest();
-        carRequest.setType("TestType");
-        carRequest.setNumber("9999");
-        carRequest.setMileage(1000L);
-        carRequest.setRecentCheck(LocalDate.now());
-        carRequest.setTagList(Arrays.asList("Test1", "Test2", "Test3"));
-        return carRequest;
-    }
-
-    private CarEditRequest getCarEditRequest() {
-        CarEditRequest request = new CarEditRequest();
-        request.setMileage(1000L);
-        request.setRecentCheck(LocalDate.now());
-        request.setAddedTagList(Arrays.asList("Tag1", "Tag2", "Tag3"));
-        request.setDeletedTagList(Arrays.asList(1L, 2L, 3L));
-
-        return request;
-    }
-
-    private List<CarResponse> getCarResponseList(Long carId) {
-        List<CarResponse> responseList = new ArrayList<>();
-        List<TagResponse> tagList = new ArrayList<>();
-        tagList.add(new TagResponse(1L, "Test1"));
-
-        responseList.add(new CarResponse(carId, CAR_1.getType(), CAR_1.getNumber(), CAR_1.getRecentCheck(),
-                CAR_1.getMileage(), CAR_1.getImageUrl(), CAR_1.isFavorite(), tagList));
+    private List<HistoryResponse> getResponseList() {
+        List<HistoryResponse> responseList = new ArrayList<>();
+        responseList.add(new HistoryResponse(1L, LocalDateTime.now(), LocalDateTime.now(), true));
 
         return responseList;
     }

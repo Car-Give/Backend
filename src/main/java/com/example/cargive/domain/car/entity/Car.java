@@ -93,6 +93,12 @@ public class Car extends BaseEntity {
         this.tagList.add(tag);
     }
 
+    // History Entity와 연관 관계를 맺기 위한 메서드
+    public void addHistory(History history) {
+        if(history.getCar() == null) history.initCar(this);
+        this.historyList.add(history);
+    }
+
     // Tag Entity와의 연관 관계를 지우기 위한 메서드
     public void removeTag(Tag tag) {
         this.tagList.remove(tag);

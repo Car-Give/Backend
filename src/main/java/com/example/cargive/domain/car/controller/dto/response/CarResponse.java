@@ -1,14 +1,12 @@
 package com.example.cargive.domain.car.controller.dto.response;
 
 import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
-import com.example.cargive.domain.tag.entity.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -23,7 +21,7 @@ public class CarResponse {
     private List<TagResponse> tagList = new ArrayList<>(); // 차량에 함께 등록된 차량 특징 카드 목록
 
     public CarResponse(Long id, String type, String number, LocalDate recentCheck, Long mileage,
-                       String imageUrl, boolean isFavorite, List<Tag> tagList) {
+                       String imageUrl, boolean isFavorite, List<TagResponse> tagList) {
         this.id = id;
         this.type = type;
         this.number = number;
@@ -31,6 +29,6 @@ public class CarResponse {
         this.mileage = mileage;
         this.imageUrl = imageUrl;
         this.isFavorite = isFavorite;
-        this.tagList = tagList.stream().map(TagResponse::toDto).collect(Collectors.toList());
+        this.tagList = tagList;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.cargive.car.domain;
 
 import com.example.cargive.domain.car.entity.Car;
+import com.example.cargive.domain.history.entity.History;
 import com.example.cargive.domain.tag.entity.Tag;
 import com.example.cargive.global.template.Status;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 import static com.example.cargive.car.fixture.CarFixture.*;
+import static com.example.cargive.history.fixture.HistoryFixture.*;
 import static com.example.cargive.tag.fixture.TagFixture.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,12 +22,14 @@ public class CarTest {
     private Car car;
     private Tag tag1;
     private Tag tag2;
+    private History history;
     
     @BeforeEach
     public void initTest() {
         car = CAR_1.createEntity();
         tag1 = TAG_1.createEntity();
         tag2 = TAG_2.createEntity();
+        history = HISTORY_1.createEntity();
     }
 
     @Test
@@ -78,6 +82,14 @@ public class CarTest {
         car.addTag(tag1);
 
         assertThat(car.getTagList().size()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("addHistory() 메서드 테스트")
+    public void addHistoryTest() {
+        car.addHistory(history);
+
+        assertThat(car.getHistoryList().size()).isEqualTo(1);
     }
 
     @Test

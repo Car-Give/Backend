@@ -4,11 +4,12 @@ import com.example.cargive.common.ServiceTest;
 import com.example.cargive.domain.car.entity.Car;
 import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
 import com.example.cargive.domain.tag.entity.Tag;
-import com.example.cargive.domain.tag.infra.dto.TagQueryResponse;
 import com.example.cargive.domain.tag.service.TagService;
 import com.example.cargive.global.base.BaseException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static com.example.cargive.car.fixture.CarFixture.*;
 import static com.example.cargive.tag.fixture.TagFixture.*;
@@ -65,10 +66,10 @@ public class TagServiceTest extends ServiceTest {
         @DisplayName("데이터 조회에 성공한다")
         public void successGetTagList() {
             // when
-            TagQueryResponse<TagResponse> tagList = tagService.getTagList(carId);
+            List<TagResponse> tagList = tagService.getTagList(carId);
 
             // then
-            assertThat(tagList.getTagList().size()).isEqualTo(1);
+            assertThat(tagList.size()).isEqualTo(1);
         }
     }
 
