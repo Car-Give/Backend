@@ -25,8 +25,9 @@ jobs:
 
       - name: Set up Gradlew
         run: |
-          sudo apt-get update
-          sudo apt-get install gradle-7.3.1
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install gradle 7.3
           sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
@@ -68,8 +69,9 @@ jobs:
 
       - name: Set up Gradlew
         run: |
-          sudo apt-get update
-          sudo apt-get install gradle-7.3.1
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          sdk install gradle 7.3
           sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
