@@ -26,7 +26,8 @@ jobs:
       - name: Set up Gradlew
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 8.3 # (7) Gradlew 설치
+          gradle-version: 8.3
+          wrapper: # (7) Gradlew 설치
 
       - name: Build with Gradle
         run: ./gradlew clean build
@@ -67,7 +68,8 @@ jobs:
       - name: Set up Gradlew
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 8.3 # (7) Gradlew 설치
+          gradle-version: 8.3
+          wrapper: # (7) Gradlew 설치
 
       - name: Build with Gradle
         run: ./gradlew clean build
