@@ -2,7 +2,6 @@ package com.example.cargive.tag.controller;
 
 import com.example.cargive.common.ControllerTest;
 import com.example.cargive.domain.tag.controller.dto.response.TagResponse;
-import com.example.cargive.domain.tag.infra.dto.TagQueryResponse;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +11,9 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -71,7 +73,7 @@ public class TagControllerTest extends ControllerTest {
         @DisplayName("차량에 등록된 차량 특징 카드 조회에 성공한다")
         public void successToGetList() throws Exception {
             // given
-            TagQueryResponse<TagResponse> response = new TagQueryResponse<>();
+            List<TagResponse> response = new ArrayList<>();
             doReturn(response)
                     .when(tagService)
                     .getTagList(anyLong());

@@ -5,7 +5,6 @@ import com.example.cargive.domain.car.controller.dto.request.CarEditRequest;
 import com.example.cargive.domain.car.controller.dto.request.CarRequest;
 import com.example.cargive.domain.car.controller.dto.response.CarResponse;
 import com.example.cargive.domain.car.entity.Car;
-import com.example.cargive.domain.car.infra.dto.CarQueryResponse;
 import com.example.cargive.domain.car.service.CarService;
 import com.example.cargive.domain.member.entity.Member;
 import com.example.cargive.domain.tag.entity.Tag;
@@ -18,6 +17,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static com.example.cargive.car.fixture.CarFixture.*;
 import static com.example.cargive.member.fixture.MemberFixture.*;
@@ -77,10 +77,10 @@ public class CarServiceTest extends ServiceTest {
         @DisplayName("데이터 조회에 성공한다")
         public void successGetCarList() {
             // when
-            CarQueryResponse<CarResponse> responseList = carService.getCarList(memberId);
+            List<CarResponse> responseList = carService.getCarList(memberId);
 
             // then
-            assertThat(responseList.getCarList().isEmpty()).isFalse();
+            assertThat(responseList.isEmpty()).isFalse();
         }
     }
 

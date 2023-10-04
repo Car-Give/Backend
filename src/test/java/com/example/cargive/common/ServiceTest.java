@@ -3,6 +3,7 @@ package com.example.cargive.common;
 import com.example.cargive.domain.car.entity.CarRepository;
 import com.example.cargive.domain.favorite.entity.repository.FavoritePkInfoRepository;
 import com.example.cargive.domain.favorite.entity.repository.FavoriteRepository;
+import com.example.cargive.domain.history.entity.HistoryRepository;
 import com.example.cargive.domain.member.repository.MemberRepository;
 import com.example.cargive.domain.parkingLot.entity.ParkingLotRepository;
 import com.example.cargive.domain.question.entity.repository.QuestionRepository;
@@ -38,6 +39,9 @@ public class ServiceTest {
 
     @Autowired
     protected ParkingLotRepository parkingLotRepository;
+
+    @Autowired
+    protected HistoryRepository historyRepository;
 
     @BeforeEach
     void setUp() {
