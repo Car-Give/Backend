@@ -24,12 +24,9 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Set up Gradlew
-        run: |
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install gradle 7.3
-          sudo gradle wrap
-        shell: bash # (7) Gradlew 설치
+        uses: gradle/gradle-build-action@v4
+        with:
+          gradle-version: 8.3 # (7) Gradlew 설치
 
       - name: Build with Gradle
         run: ./gradlew clean build
@@ -68,12 +65,9 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Set up Gradlew
-        run: |
-          curl -s "https://get.sdkman.io" | bash
-          source "$HOME/.sdkman/bin/sdkman-init.sh"
-          sdk install gradle 7.3
-          sudo gradle wrap
-        shell: bash # (7) Gradlew 설치
+        uses: gradle/gradle-build-action@v4
+        with:
+          gradle-version: 8.3 # (7) Gradlew 설치
 
       - name: Build with Gradle
         run: ./gradlew clean build
