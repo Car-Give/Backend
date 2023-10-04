@@ -26,7 +26,7 @@ jobs:
       - name: Set up Gradlew
         run: |
           sudo apt install gradle
-          sudo gradle wrap
+          sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
@@ -68,7 +68,7 @@ jobs:
       - name: Set up Gradlew
         run: |
           sudo apt install gradle
-          sudo gradle wrap
+          sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
