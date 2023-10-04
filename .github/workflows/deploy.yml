@@ -19,6 +19,16 @@ jobs:
           java-version: 17
           distribution: adopt-hotspot # (5) 자바 설치
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash # (6) 권한 부여
@@ -41,6 +51,18 @@ jobs:
       - name: Code Test
         run: ./gradlew test
         shell: bash # (11) 테스트 코드 실행
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: ${{ always() }}  # 테스트가 실패하여도 Report를 보기 위해 `always`로 설정
+        with:
+          files: build/test-results/**/*.xml
+
+      - name: Cleanup Gradle Cache
+        if: ${{ always() }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
   build:
     runs-on: ubuntu-latest # (3) OS환경
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
@@ -54,6 +76,16 @@ jobs:
         with:
           java-version: 17 # (5) 자바 설치
           distribution: adopt-hotspot
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
@@ -94,3 +126,9 @@ jobs:
           region: ap-northeast-2
           deployment_package: deploy/deploy.zip
           wait_for_environment_recovery: 60
+
+      - name: Cleanup Gradle Cache
+        if: ${{ always() }}
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
