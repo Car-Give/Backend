@@ -2,7 +2,7 @@ name: carGive Dev CI/CD
 
 on:
   pull_request:
-    types: [ closed, opened ]
+    types: [ closed, opened, edited ]
   workflow_dispatch: # (2) 수동 실행
 
 jobs:
