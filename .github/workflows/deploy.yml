@@ -25,7 +25,8 @@ jobs:
 
       - name: Set up Gradlew
         run: |
-          sudo apt install gradle-8.3
+          sudo apt-get update
+          sudo apt-get install gradle-8.3
           sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
@@ -67,7 +68,8 @@ jobs:
 
       - name: Set up Gradlew
         run: |
-          sudo apt install gradle-8.3
+          sudo apt-get update
+          sudo apt-get install gradle-8.3
           sudo gradle wrapper --gradle-version latest
         shell: bash # (7) Gradlew 설치
 
