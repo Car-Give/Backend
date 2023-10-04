@@ -6,6 +6,8 @@ permissions:
 
 on:
   pull_request:
+    types:
+      [ opened, synchronize, reopened, closed ]
   workflow_dispatch: # (2) 수동 실행
 
 jobs:
