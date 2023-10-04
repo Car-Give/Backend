@@ -28,7 +28,7 @@ jobs:
           curl -s "https://get.sdkman.io" | bash
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk install gradle 8.3
-          sudo gradle wrapper --gradle-version latest
+          sudo gradle wrapper
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
@@ -72,7 +72,7 @@ jobs:
           curl -s "https://get.sdkman.io" | bash
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk install gradle 8.3
-          sudo gradle wrapper --gradle-version latest
+          sudo gradle wrapper
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
