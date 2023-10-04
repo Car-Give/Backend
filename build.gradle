@@ -13,6 +13,10 @@ java {
     targetCompatibility = '17'
 }
 
+wrapper {
+    gradleVersion = '8.3'
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
