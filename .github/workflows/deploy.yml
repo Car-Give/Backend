@@ -24,9 +24,7 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Set up Gradlew
-        run: |
-          sudo apt install gradle
-          gradle wrap
+        run: sudo apt install gradle
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
@@ -66,9 +64,7 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Set up Gradlew
-        run: |
-          sudo apt install gradle
-          gradle wrap
+        run: sudo apt install gradle
         shell: bash # (7) Gradlew 설치
 
       - name: Build with Gradle
