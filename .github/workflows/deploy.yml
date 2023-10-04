@@ -25,6 +25,7 @@ jobs:
 
       - name: Set up Gradlew
         run: |
+          java --version
           curl -s "https://get.sdkman.io" | bash
           source "$HOME/.sdkman/bin/sdkman-init.sh"
           sdk install gradle 8.3
