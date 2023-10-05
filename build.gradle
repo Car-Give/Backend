@@ -89,6 +89,8 @@ asciidoctor.doFirst {
     delete file('src/main/resources/static/docs')
 }
 
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'prod' : profile
+
 bootJar {
     dependsOn asciidoctor
 
