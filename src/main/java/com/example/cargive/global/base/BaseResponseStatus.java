@@ -65,6 +65,7 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
 
     // S3
     FILE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "S001", "파일 업로드에 실패했습니다."),
+    FILE_EMPTY_ERROR(HttpStatus.NOT_FOUND, "S002", "파일이 존재하지 않습니다."),
 
     /**
      * 500 : 응답 실패

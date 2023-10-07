@@ -33,11 +33,11 @@ public class S3Service {
 
     private String upload(File uploadFile, String dirName) {
         String fileName = dirName + "/" + uploadFile.getName();
-        String uploadImageUrl = putS3(uploadFile, fileName);
+        String uploadFileUrl = putS3(uploadFile, fileName);
 
         removeNewFile(uploadFile);  // convert() 함수로 인해서 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
 
-        return uploadImageUrl;      // 업로드된 파일의 S3 URL 주소 반환
+        return uploadFileUrl;      // 업로드된 파일의 S3 URL 주소 반환
     }
 
     private String putS3(File uploadFile, String fileName) {
@@ -57,6 +57,7 @@ public class S3Service {
     }
 
     private Optional<File> convert(MultipartFile file) throws  IOException {
+        validateFileExists(file);
         File convertFile = new File(file.getOriginalFilename()); // 업로드한 파일의 이름
         if(convertFile.createNewFile()) {
             try (FileOutputStream fos = new FileOutputStream(convertFile)) {
@@ -65,5 +66,10 @@ public class S3Service {
             return Optional.of(convertFile);
         }
         return Optional.empty();
+    }
+
+    private void validateFileExists(MultipartFile file) {
+        if (file == null || file.isEmpty())
+            throw new BaseException(BaseResponseStatus.FILE_EMPTY_ERROR);
     }
 }
