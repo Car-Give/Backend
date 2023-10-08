@@ -26,14 +26,17 @@ jobs:
           distribution: adopt-hotspot # (5) 자바 설치
 
       - name: Write S3 Name
-        run: echo "S3_BUCKET_NAME=${{secrets.S3_BUCKET_NAME}}" >> application.yml
-        working-directory: ./server/src/main/resources
+        run: echo "S3_BUCKET_NAME=$S3_BUCKET_NAME" >> .env
+        env:
+          S3_BUCKET_NAME: ${{secrets.S3_BUCKET_NAME}}
       - name: Write S3 Access
-        run: echo "S3_ACCESS_KEY=${{secrets.S3_ACCESS_KEY}}" >> application.yml
-        working-directory: ./server/src/main/resources
+        run: echo "S3_ACCESS_KEY=$S3_ACCESS_KEY" >> .env
+        env:
+          S3_ACCESS_KEY: ${{secrets.S3_ACCESS_KEY}}
       - name: Write S3 Secret
-        run: echo "S3_SECRET_KEY=${{secrets.S3_SECRET_KEY}}" >> application.yml
-        working-directory: ./server/src/main/resources
+        run: echo "S3_SECRET_KEY=$S3_SECRET_KEY" >> .env
+        env:
+          S3_SECRET_KEY: ${{secrets.S3_SECRET_KEY}}
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
