@@ -20,7 +20,7 @@ public class Email {
             "A-Z]{2,7}$";
     private static final Pattern EMAIL_MATCHER = Pattern.compile(EMAIL_PATTERN);
 
-    @Column(name = "email", nullable = false, unique = true, updatable = false)
+    @Column(name = "email", nullable = false, updatable = false)
     private String value;
 
     private Email(String value) {
