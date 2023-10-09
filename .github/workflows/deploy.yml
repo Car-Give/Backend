@@ -106,9 +106,7 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Build with Gradle
-        run: ./gradlew clean bootjar
-        env:
-          SPRING_PROFILES_ACTIVE: prod
+        run: ./gradlew clean bootjar -Pprofile=prod
         shell: bash # (8) build 시작
 
       - name: Get current time
