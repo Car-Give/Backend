@@ -1,13 +1,41 @@
 spring:
   profiles:
-    default: dev
+    group:
+      "dev" : "localdb, common"
+      "prod" : "proddb, common"
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "localdb"
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/carGive?serverTimezone=UTC&characterEncoding=UTF-8
-    username:
+    username: root
     password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+        default_batch_fetch_size: 50
 
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "proddb"
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${rds.host}:${rds.port}/${rds.db.info}
+    username: ${rds.username}
+    password: ${rds.password}
   jpa:
     open-in-view: false
     hibernate:
@@ -17,3 +45,35 @@ spring:
         show_sql: false
         format_sql: true
         default_batch_fetch_size: 50
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: "common"
+  servlet:
+    multipart:
+      max-file-size: 10MB # 요청한 파일 한 개의 크기
+      max-request-size: 10MB # 요청한 파일 전체의 크기
+
+logging:
+  level:
+    root: debug
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
+
+cloud:
+  aws:
+    s3:
+      bucket: ${s3.bucket.name}
+    credentials:
+      access-key: ${s3.access.key}
+      secret-key: ${s3.secret.key}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

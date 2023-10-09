@@ -13,6 +13,10 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest # (3) OS환경
+    env:
+      S3_BUCKET_NAME: ${{secrets.S3_BUCKET_NAME}}
+      S3_ACCESS_KEY: ${{secrets.S3_ACCESS_KEY}}
+      S3_SECRET_KEY: ${{secrets.S3_SECRET_KEY}}
     if: startsWith(github.head_ref, 'feature/')
 
     steps:
@@ -71,6 +75,10 @@ jobs:
           rm -f ~/.gradle/caches/modules-2/gc.properties
   build:
     runs-on: ubuntu-latest # (3) OS환경
+    env:
+      S3_BUCKET_NAME: ${{secrets.S3_BUCKET_NAME}}
+      S3_ACCESS_KEY: ${{secrets.S3_ACCESS_KEY}}
+      S3_SECRET_KEY: ${{secrets.S3_SECRET_KEY}}
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'develop'
 
     steps:
@@ -98,7 +106,9 @@ jobs:
         shell: bash # (6) 권한 부여
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean bootjar
+        env:
+          SPRING_PROFILES_ACTIVE: prod
         shell: bash # (8) build 시작
 
       - name: Get current time
