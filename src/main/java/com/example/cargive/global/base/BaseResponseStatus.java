@@ -33,6 +33,7 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     // Member
     MEMBER_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "M001", "존재하지 않는 사용자 입니다."),
     INVALID_EMAIL_FORMAT(HttpStatus.BAD_REQUEST, "M002", "이메일 형식이 올바르지 않습니다."),
+    MEMBER_STATUS_NOT_VALID_ERROR(HttpStatus.NOT_FOUND, "M003", "이미 삭제된 회원입니다"),
 
     // Favorite
     FAVORITE_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "F001", "존재하지 않는 즐겨찾기 입니다."),
