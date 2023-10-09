@@ -1,57 +1,4 @@
 spring:
-  profiles:
-    group:
-      "dev" : "localdb, common"
-      "prod" : "proddb, common"
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "localdb"
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/carGive?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password:
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        show_sql: false
-        format_sql: true
-        default_batch_fetch_size: 50
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "proddb"
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${rds.host}:${rds.port}/${rds.db.info}
-    username: ${rds.username}
-    password: ${rds.password}
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-    properties:
-      hibernate:
-        show_sql: false
-        format_sql: true
-        default_batch_fetch_size: 50
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: "common"
   servlet:
     multipart:
       max-file-size: 10MB # 요청한 파일 한 개의 크기
@@ -77,3 +24,15 @@ cloud:
       auto: false
     stack:
       auto: false
+
+---
+
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles:
+    active: prod
