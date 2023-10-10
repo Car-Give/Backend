@@ -104,6 +104,10 @@ public class Car extends BaseEntity {
         this.tagList.remove(tag);
     }
 
+    public void initMember(Member member) {
+        this.member = member;
+    }
+
     // 이미지 접근 URL을 수정하기 위한 메서드
     private void editImageUrl(String imageUrl) {
         if(imageUrl.isBlank() || imageUrl.isEmpty()) return;

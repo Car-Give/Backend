@@ -29,7 +29,8 @@ public class FavoriteCarService {
         checkValidation(findMember, findCar);
 
         FavoriteCar favoriteCarEntity = createFavoriteCarEntity(findMember, findCar);
-        findCar.favoriteEntity();
+
+        makeConnection(favoriteCarEntity, findCar, findMember);
 
         favoriteRepository.save(favoriteCarEntity);
     }
@@ -42,6 +43,7 @@ public class FavoriteCarService {
         checkValidation(findMember, findFavoriteCar);
 
         findFavoriteCar.deleteEntity();
+        findMember.removeFavoriteCar(findFavoriteCar);
     }
 
     // 차량을 동록한 사람과 사용자의 일치 여부를 확인하는 메서드
@@ -54,6 +56,12 @@ public class FavoriteCarService {
     private void checkValidation(Member member, FavoriteCar favoriteCar) {
         if(!favoriteCar.getMember().getName().equals(member.getName()))
             throw new BaseException(BaseResponseStatus.FAVORITE_MEMBER_NOT_MATCH_ERROR);
+    }
+
+    // Entity 사이의 연관 관계를 맺는 메서드
+    private void makeConnection(FavoriteCar favoriteCar, Car car, Member member) {
+        car.favoriteEntity();
+        member.addFavoriteCar(favoriteCar);
     }
 
     // Member Entity, Car Entity를 통하여 새로운 객체를 반환하는 메서드

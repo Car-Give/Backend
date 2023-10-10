@@ -35,6 +35,9 @@ public class FavoritePkGroupService {
     public void createFavoriteGroup(Long memberId, FavoriteGroupRequest request) {
         Member findMember = getMember(memberId);
         FavoritePkGroup favoriteGroup = request.toFavoriteGroup(findMember);
+
+        findMember.addFavoritePkGroup(favoriteGroup);
+
         favoritesRepository.save(favoriteGroup);
     }
 
@@ -57,7 +60,7 @@ public class FavoritePkGroupService {
 
         checkMemberValidation(findMember, favoriteGroup);
 
-        favoriteGroup.deleteEntity();
+        deleteConnection(favoriteGroup, findMember);
     }
 
     // 정렬 기준에 따라서 데이터를 조회하는 메서드
@@ -82,6 +85,12 @@ public class FavoritePkGroupService {
 
         if(!loginMember.getLoginId().equals(member.getLoginId()))
             throw new BaseException(BaseResponseStatus.INPUT_INVALID_VALUE);
+    }
+
+    // FavoritePkGroup Entity와 Member Entity의 연관 관계를 제거하는 메서드
+    private void deleteConnection(Favorite favorite, Member member) {
+        favorite.deleteEntity();
+        member.removeFavoritePkGroup((FavoritePkGroup) favorite);
     }
 
     // 별도의 MemberService가 구현되어 있지 않기 때문에 임시 메소드 형성, 추후에 변경 예정

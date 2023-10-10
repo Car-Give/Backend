@@ -27,6 +27,10 @@ public abstract class Favorite extends BaseEntity {
     @JoinColumn(name = "member_id")
     protected Member member; // Member Entity와 양방향 연관 관계를 형성
 
+    public void initMember(Member member) {
+        this.member = member;
+    }
+
     public void deleteEntity() {
         this.status = Status.EXPIRED; // 데이터의 상태를 변경하기 위한 메서드 추가
     }

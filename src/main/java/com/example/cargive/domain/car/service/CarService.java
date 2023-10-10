@@ -42,6 +42,7 @@ public class CarService {
 
         Car car = createCar(carRequest, imageUrl, findMember);
         makeConnection(createdTagList, car);
+        makeConnection(findMember, car);
 
         carRepository.save(car);
     }
@@ -63,6 +64,7 @@ public class CarService {
         checkValidation(findCar, findMember);
 
         findCar.deleteEntity();
+        findMember.removeCar(findCar);
     }
 
     // S3를 활용해서 이미지의 URL을 반환하는 메서드. 현재로써는 기능이 구현되어 있지 않기 때문에 임의의 문자열을 반환
@@ -102,6 +104,11 @@ public class CarService {
             car.addTag(tag);
             tag.initCar(car);
         });
+    }
+
+    private void makeConnection(Member member, Car car) {
+        member.addCar(car);
+        car.initMember(member);
     }
 
     // 사용자가 등록한 자동차 정보를 조회하는 메서드
