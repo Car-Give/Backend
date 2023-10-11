@@ -1,5 +1,7 @@
 package com.example.cargive.common;
 
+import com.example.cargive.domain.answer.controller.AnswerController;
+import com.example.cargive.domain.answer.service.AnswerService;
 import com.example.cargive.domain.car.controller.CarController;
 import com.example.cargive.domain.car.service.CarService;
 import com.example.cargive.domain.favorite.controller.FavoriteCarController;
@@ -12,6 +14,8 @@ import com.example.cargive.domain.history.controller.HistoryController;
 import com.example.cargive.domain.history.service.HistoryService;
 import com.example.cargive.domain.member.controller.MemberController;
 import com.example.cargive.domain.member.service.MemberService;
+import com.example.cargive.domain.notice.controller.NoticeController;
+import com.example.cargive.domain.notice.service.NoticeService;
 import com.example.cargive.domain.parkingLot.controller.ParkingLotController;
 import com.example.cargive.domain.parkingLot.service.ParkingLotService;
 import com.example.cargive.domain.question.controller.QuestionController;
@@ -50,7 +54,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
         FavoritePkGroupController.class,
         FavoriteCarController.class,
         HistoryController.class,
-        MemberController.class
+        MemberController.class,
+        NoticeController.class,
+        AnswerController.class
 })
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs
@@ -96,6 +102,12 @@ public abstract class ControllerTest {
 
     @MockBean
     protected MemberService memberService;
+
+    @MockBean
+    protected NoticeService noticeService;
+
+    @MockBean
+    protected AnswerService answerService;
 
     @BeforeEach
     void setUp(WebApplicationContext context, RestDocumentationContextProvider provider) {
