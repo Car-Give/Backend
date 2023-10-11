@@ -33,4 +33,12 @@ public class Answer {
         this.status = Status.NORMAL;
         this.question = question;
     }
+
+    public void editInfo(String content) {
+        this.content = content;
+    }
+
+    public void deleteEntity() {
+        this.status = Status.EXPIRED;
+    }
 }

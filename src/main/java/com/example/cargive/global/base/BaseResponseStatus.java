@@ -64,6 +64,14 @@ public enum BaseResponseStatus implements BaseResponseStatusImpl {
     HISTORY_CAR_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "H002", "차량 정보와 이용 기록 정보가 일치하지 않습니다."),
     HISTORY_LIST_EMPTY_ERROR(HttpStatus.NOT_FOUND, "H003", "이용 기록이 존재하지 않습니다."),
 
+    // ANSWER
+    ANSWER_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "A001", "일치하는 답변이 존재하지 않습니다."),
+    ANSWER_MEMBER_NOT_MATCH_ERROR(HttpStatus.CONFLICT, "A002", "생성자와 이용자의 정보가 일치하지 않습니다."),
+
+    // NOTICE
+    NOTICE_NOT_FOUND_ERROR(HttpStatus.NOT_FOUND, "N001", "일치하는 데이터가 존재하지 않습니다."),
+    NOTICE_LIST_EMPTY_ERROR(HttpStatus.NOT_FOUND, "N002", "조회한 데이터가 존재하지 않습니다."),
+
     // S3
     FILE_UPLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "S001", "파일 업로드에 실패했습니다."),
     FILE_EMPTY_ERROR(HttpStatus.NOT_FOUND, "S002", "파일이 존재하지 않습니다."),
