@@ -1,40 +1,38 @@
-package com.example.cargive.domain.answer.entity;
+package com.example.cargive.domain.notice.entity;
 
-import com.example.cargive.domain.question.entity.Question;
+import com.example.cargive.global.domain.BaseEntity;
 import com.example.cargive.global.template.Status;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "notice")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "answer")
-public class Answer {
+public class Notice extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String content;
 
     @Convert(converter = Status.StatusConverter.class)
     private Status status;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
-    private Question question;  // Question Entity와 단방향 연관 관계를 형성
-
-    @Builder
-    public Answer(String content, Question question) {
+    public Notice(String title, String content) {
+        this.title = title;
         this.content = content;
         this.status = Status.NORMAL;
-        this.question = question;
     }
 
-    public void editInfo(String content) {
+    public void editInfo(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 
