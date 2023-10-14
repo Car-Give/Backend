@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/car")
@@ -25,7 +27,7 @@ public class CarController {
     @PostMapping // 자동차 등록
     public ResponseEntity<BaseResponse> createCar(@RequestPart(value = "request") @Valid CarRequest request,
                                                   @RequestPart(value = "file") MultipartFile file,
-                                                  @RequestParam Long memberId) {
+                                                  @RequestParam Long memberId) throws IOException {
         carService.createCar(request, file, memberId);
         return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.CREATED);
     }
@@ -34,7 +36,7 @@ public class CarController {
     public ResponseEntity<BaseResponse> editCar(@RequestPart(value = "request") @Valid CarEditRequest request,
                                                 @RequestPart(value = "file", required = false) MultipartFile file,
                                                 @PathVariable Long carId,
-                                                @RequestParam Long memberId) {
+                                                @RequestParam Long memberId) throws IOException {
         carService.editCar(request, file, carId, memberId);
         return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
     }

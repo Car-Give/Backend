@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/member")
 @RequiredArgsConstructor
@@ -23,7 +25,7 @@ public class MemberController {
     @PutMapping
     public ResponseEntity<BaseResponse> editMember(@RequestParam Long memberId,
                                                    @RequestPart(name = "request") MemberRequest request,
-                                                   @RequestPart(name = "file") MultipartFile file) {
+                                                   @RequestPart(name = "file") MultipartFile file) throws IOException {
         memberService.editMember(memberId, request, file);
         return BaseResponse.toResponseEntityContainsResult(BaseResponseStatus.SUCCESS);
     }

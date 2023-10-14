@@ -12,11 +12,13 @@ import com.example.cargive.domain.tag.service.TagCreateService;
 import com.example.cargive.domain.tag.service.TagFindService;
 import com.example.cargive.global.base.BaseException;
 import com.example.cargive.global.base.BaseResponseStatus;
+import com.example.cargive.global.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,8 @@ public class CarService {
     private final TagFindService tagFindService;
     private final TagCreateService tagCreateService;
     private final MemberRepository memberRepository;
+    private final S3Service s3Service;
+    private static final String S3_DIRECTORY_CAR = "car";
 
     @Transactional(readOnly = true)
     public List<CarResponse> getCarList(Long memberId) {
@@ -35,7 +39,7 @@ public class CarService {
     }
 
     @Transactional
-    public void createCar(CarRequest carRequest, MultipartFile file, Long memberId) {
+    public void createCar(CarRequest carRequest, MultipartFile file, Long memberId) throws IOException {
         String imageUrl = getImageUrl(file);
         Member findMember = getMember(memberId);
         List<Tag> createdTagList = getTagListByName(carRequest.getTagList());
@@ -48,7 +52,7 @@ public class CarService {
     }
 
     @Transactional
-    public void editCar(CarEditRequest request, MultipartFile file, Long carId, Long memberId) {
+    public void editCar(CarEditRequest request, MultipartFile file, Long carId, Long memberId) throws IOException {
         Car findCar = getCarById(carId);
         Member findMember = getMember(memberId);
 
@@ -67,10 +71,10 @@ public class CarService {
         findMember.removeCar(findCar);
     }
 
-    // S3를 활용해서 이미지의 URL을 반환하는 메서드. 현재로써는 기능이 구현되어 있지 않기 때문에 임의의 문자열을 반환
-    private String getImageUrl(MultipartFile file) {
+    // S3를 활용해서 이미지의 URL을 반환하는 메서드
+    private String getImageUrl(MultipartFile file) throws IOException {
         if(file.isEmpty()) return "";
-        return "ImageUrl";
+        return s3Service.upload(file, S3_DIRECTORY_CAR);
     }
 
     // Car Entity에 등록된 사용자의 정보와 이용자의 정보를 확인하는 메서드
@@ -80,7 +84,7 @@ public class CarService {
     }
 
     // 사용자로부터 입력 받은 정보를 통해서 Car Entity의 정보를 수정하는 메서드
-    private void editCarInfo(Car car, CarEditRequest request, MultipartFile file) {
+    private void editCarInfo(Car car, CarEditRequest request, MultipartFile file) throws IOException {
         LocalDate recentCheck = request.getRecentCheck();
         String imageUrl = getImageUrl(file);
         Long mileage = request.getMileage();

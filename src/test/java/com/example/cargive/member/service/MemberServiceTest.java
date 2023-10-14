@@ -11,9 +11,13 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 
-import static com.example.cargive.member.fixture.MemberFixture.*;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+
+import static com.example.cargive.member.fixture.MemberFixture.ASSAC;
+import static com.example.cargive.member.fixture.MemberFixture.WIZ;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DisplayName("Member [Service Layer] -> MemberService 테스트")
 public class MemberServiceTest extends ServiceTest {
@@ -109,7 +113,7 @@ public class MemberServiceTest extends ServiceTest {
 
         @Test
         @DisplayName("데이터 수정에 성공한다")
-        public void successEditMemberInfo() {
+        public void successEditMemberInfo() throws IOException {
             // given
             MemberRequest request = getMemberRequest();
             MockMultipartFile file = new MockMultipartFile("image", "test",
