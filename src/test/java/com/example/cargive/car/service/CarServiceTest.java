@@ -14,15 +14,18 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.cargive.car.fixture.CarFixture.*;
-import static com.example.cargive.member.fixture.MemberFixture.*;
-import static com.example.cargive.tag.fixture.TagFixture.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.example.cargive.car.fixture.CarFixture.CAR_1;
+import static com.example.cargive.member.fixture.MemberFixture.ASSAC;
+import static com.example.cargive.member.fixture.MemberFixture.WIZ;
+import static com.example.cargive.tag.fixture.TagFixture.TAG_1;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DisplayName("Car [Service Layer] -> CarService 테스트")
 public class CarServiceTest extends ServiceTest {
@@ -99,7 +102,7 @@ public class CarServiceTest extends ServiceTest {
 
         @Test
         @DisplayName("자동차 정보 생성에 성공한다")
-        public void successCreateCar() {
+        public void successCreateCar() throws IOException {
             // when
             carService.createCar(
                     getCarRequest(),
@@ -136,7 +139,7 @@ public class CarServiceTest extends ServiceTest {
 
         @Test
         @DisplayName("차량 정보 수정에 성공한다")
-        public void successEditCar() {
+        public void successEditCar() throws IOException {
             // when
             carService.editCar(getCarEditRequest(),
                     new MockMultipartFile("Test Image", "test", null, new byte[]{}),
