@@ -21,6 +21,7 @@ spring:
           google:
             client-id: ${google.id}
             client-secret: ${google.secret}
+            redirect-uri: ${base.url}/${auth.action}/oauth2/code/google
             scope: profile, email
 
           naver:
