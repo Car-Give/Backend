@@ -12,6 +12,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -60,8 +62,8 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Create/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -92,8 +94,8 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
+                                    getDocumentRequest(),
+                                    getDocumentResponse()
                     )
                     );
         }
@@ -136,8 +138,8 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Edit/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -168,8 +170,9 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Edit/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()))
+                                    getDocumentRequest(),
+                                    getDocumentResponse()
+                            )
                     );
         }
     }
@@ -208,8 +211,8 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -237,8 +240,8 @@ public class AnswerControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Answer/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
+                                    getDocumentRequest(),
+                                    getDocumentResponse()
                             )
                     );
         }

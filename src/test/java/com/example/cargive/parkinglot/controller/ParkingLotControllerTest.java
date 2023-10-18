@@ -14,6 +14,8 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static com.example.cargive.parkinglot.fixture.ParkingLotFixture.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -61,8 +63,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "ParkingLot/Info/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(parameterWithName("parkingLotId").description("주차장 ID")),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -91,8 +93,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                     .andExpect(status().isOk())
                     .andDo(
                             document("ParkingLot/Info/Success",
-                            preprocessRequest(prettyPrint()),
-                            preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                             pathParameters(parameterWithName("parkingLotId").description("주차장 ID")))
                     );
         }
@@ -124,8 +126,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "ParkingLot/Save/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     requestFields(
                                             fieldWithPath("longitude").type(JsonFieldType.NUMBER).description("주차장 경도 좌표"),
                                             fieldWithPath("latitude").type(JsonFieldType.NUMBER).description("주차장 위도 좌표")
@@ -174,8 +176,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "ParkingLot/DELETE/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(parameterWithName("parkingLotId").description("주차장 ID")),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -203,8 +205,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "ParkingLot/DELETE/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(parameterWithName("parkingLotId").description("주차장 ID"))
                             )
                     );
