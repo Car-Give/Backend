@@ -23,8 +23,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("Notice [Controller Layer] -> NoticeController 테스트")
@@ -65,7 +65,8 @@ public class NoticeControllerTest extends ControllerTest {
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
-                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -91,7 +92,7 @@ public class NoticeControllerTest extends ControllerTest {
                             jsonPath("$.result.size()").value(1)
                     ).andDo(
                             document(
-                                    "Member/List/Success",
+                                    "Notice/List/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
                                     responseFields(
@@ -141,6 +142,9 @@ public class NoticeControllerTest extends ControllerTest {
                                     "Notice/Info/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -173,6 +177,9 @@ public class NoticeControllerTest extends ControllerTest {
                                     "Notice/Info/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -214,6 +221,10 @@ public class NoticeControllerTest extends ControllerTest {
                                     "Notice/Create/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    requestFields(
+                                            fieldWithPath("title").type(JsonFieldType.STRING).description("공지사항 제목"),
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("공지사항 내용")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -265,6 +276,13 @@ public class NoticeControllerTest extends ControllerTest {
                                     "Notice/Edit/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("title").type(JsonFieldType.STRING).description("공지사항 제목"),
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("공지사항 내용")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -297,7 +315,19 @@ public class NoticeControllerTest extends ControllerTest {
                             document(
                                     "Notice/Edit/Success",
                                     preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
+                                    preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("title").type(JsonFieldType.STRING).description("공지사항 제목"),
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("공지사항 내용")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -340,6 +370,9 @@ public class NoticeControllerTest extends ControllerTest {
                                     "Notice/Delete/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -369,7 +402,16 @@ public class NoticeControllerTest extends ControllerTest {
                             document(
                                     "Notice/Delete/Success",
                                     preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()))
+                                    preprocessResponse(prettyPrint()),
+                                    pathParameters(
+                                            parameterWithName("noticeId").description("공지사항 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
+                            )
                     );
         }
     }
