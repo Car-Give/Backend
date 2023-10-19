@@ -1,0 +1,108 @@
+= MEMBER 회원 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 회원 정보 조회
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Info/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Info/Failure/Case1/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Info/Failure/Case1/http-response.adoc[]
+include::{snippets}/Member/Info/Failure/Case1/response-fields.adoc[]
+
+=== 2. 이미 삭제된 데이터인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Info/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Info/Failure/Case2/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Info/Failure/Case2/http-response.adoc[]
+include::{snippets}/Member/Info/Failure/Case2/response-fields.adoc[]
+
+=== 3. 데이터 조회에 성공한다
+==== HTTP Request
+include::{snippets}/Member/Info/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Info/Success/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Info/Success/http-response.adoc[]
+include::{snippets}/Member/Info/Success/response-fields.adoc[]
+
+== 회원 정보 수정
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Edit/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Edit/Failure/Case1/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Edit/Failure/Case1/http-response.adoc[]
+include::{snippets}/Member/Edit/Failure/Case1/response-fields.adoc[]
+
+=== 2. 이미 삭제된 데이터인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Edit/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Edit/Failure/Case2/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Edit/Failure/Case2/http-response.adoc[]
+include::{snippets}/Member/Edit/Failure/Case2/response-fields.adoc[]
+
+=== 3. 데이터 수정에 성공한다
+==== HTTP Request
+include::{snippets}/Member/Edit/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Edit/Success/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Edit/Success/http-response.adoc[]
+include::{snippets}/Member/Edit/Success/response-fields.adoc[]
+
+== 회원 정보 삭제
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Delete/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Delete/Failure/Case1/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/Member/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 이미 삭제된 데이터인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Member/Delete/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Delete/Failure/Case2/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/Member/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. 데이터 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/Member/Delete/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/Member/Delete/Success/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Member/Delete/Success/http-response.adoc[]
+include::{snippets}/Member/Delete/Success/response-fields.adoc[]
