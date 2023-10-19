@@ -63,7 +63,8 @@ public class TagControllerTest extends ControllerTest {
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
-                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
 
@@ -73,7 +74,8 @@ public class TagControllerTest extends ControllerTest {
         @DisplayName("차량에 등록된 차량 특징 카드 조회에 성공한다")
         public void successToGetList() throws Exception {
             // given
-            List<TagResponse> response = new ArrayList<>();
+            List<TagResponse> response = getResponseList();
+
             doReturn(response)
                     .when(tagService)
                     .getTagList(anyLong());
@@ -91,7 +93,14 @@ public class TagControllerTest extends ControllerTest {
                                     "Tag/List/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
-                                    pathParameters(parameterWithName("carId").description("차량 ID"))
+                                    pathParameters(parameterWithName("carId").description("차량 ID")),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"),
+                                            fieldWithPath("result[0].id").type(JsonFieldType.NUMBER).description("차량 특징 카드 Id"),
+                                            fieldWithPath("result[0].name").type(JsonFieldType.STRING).description("차량 특징")
+                                    )
                             )
                     );
         }
@@ -117,7 +126,7 @@ public class TagControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, errorTagId)
-                    .param("carId", String.valueOf(carId));
+                    .queryParam("carId", String.valueOf(carId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.TAG_NOT_FOUND_ERROR;
@@ -136,7 +145,12 @@ public class TagControllerTest extends ControllerTest {
                                     "Tag/Delete/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
-                                    pathParameters(parameterWithName("tagId").description("차량 특징 카드 ID")),
+                                    pathParameters(
+                                            parameterWithName("tagId").description("차량 특징 카드 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -156,7 +170,7 @@ public class TagControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, tagId)
-                    .param("carId", String.valueOf(errorCarId));
+                    .queryParam("carId", String.valueOf(errorCarId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
@@ -175,7 +189,12 @@ public class TagControllerTest extends ControllerTest {
                                     "Tag/Delete/Failure/Case2",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
-                                    pathParameters(parameterWithName("tagId").description("차량 특징 카드 ID")),
+                                    pathParameters(
+                                            parameterWithName("tagId").description("차량 특징 카드 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -195,7 +214,7 @@ public class TagControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, tagId)
-                    .param("carId", String.valueOf(carId));
+                    .queryParam("carId", String.valueOf(carId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_MATCH_ERROR;
@@ -214,7 +233,12 @@ public class TagControllerTest extends ControllerTest {
                                     "Tag/Delete/Failure/Case3",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
-                                    pathParameters(parameterWithName("tagId").description("차량 특징 카드 ID")),
+                                    pathParameters(
+                                            parameterWithName("tagId").description("차량 특징 카드 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -234,7 +258,7 @@ public class TagControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, tagId)
-                    .param("carId", String.valueOf(carId));
+                    .queryParam("carId", String.valueOf(carId));
 
             // then
             mockMvc.perform(request)
@@ -245,9 +269,27 @@ public class TagControllerTest extends ControllerTest {
                                     "Tag/Delete/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
-                                    pathParameters(parameterWithName("tagId").description("차량 특징 카드 ID"))
+                                    pathParameters(
+                                            parameterWithName("tagId").description("차량 특징 카드 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
+        }
+    private List<TagResponse> getResponseList() {
+        List<TagResponse> responseList = new ArrayList<>();
+
+        responseList.add(new TagResponse(1L, "Tag"));
+
+        return responseList;
     }
-}
+
+    }
