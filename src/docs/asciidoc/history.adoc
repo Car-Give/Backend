@@ -1,0 +1,186 @@
+자
+
+== 이용기록 조회
+=== 1. 조회한 결과가 존재하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/List/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/History/List/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/List/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/List/Failure/Case1/http-response.adoc[]
+include::{snippets}/History/List/Failure/Case1/response-fields.adoc[]
+
+=== 2. 데이터의 조회에 성공한다
+==== HTTP Request
+include::{snippets}/History/List/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/History/List/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/List/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/List/Success/http-response.adoc[]
+include::{snippets}/History/List/Success/response-fields.adoc[]
+
+== 차량 이용 시작
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/Create/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/History/Create/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/Create/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/Create/Failure/Case1/http-response.adoc[]
+include::{snippets}/History/Create/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 carId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/Create/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/History/Create/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/Create/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/Create/Failure/Case2/http-response.adoc[]
+include::{snippets}/History/Create/Failure/Case2/response-fields.adoc[]
+
+=== 3. 유효하지 않은 parkingLotId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/Create/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/History/Create/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/Create/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/Create/Failure/Case3/http-response.adoc[]
+include::{snippets}/History/Create/Failure/Case3/response-fields.adoc[]
+
+=== 4. 저장된 데이터와 이용자의 정보가 일치하지 않을경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/Create/Failure/Case4/http-request.adoc[]
+
+Query String
+include::{snippets}/History/Create/Failure/Case4/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/Create/Failure/Case4/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/Create/Failure/Case4/http-response.adoc[]
+include::{snippets}/History/Create/Failure/Case4/response-fields.adoc[]
+
+=== 5. 이용 시작에 성공한다
+==== HTTP Request
+include::{snippets}/History/Create/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/History/Create/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/Create/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/Create/Success/http-response.adoc[]
+include::{snippets}/History/Create/Success/response-fields.adoc[]
+
+== 차량 이용 종료
+=== 1. 유효하지 않은 carId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/End/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Failure/Case1/http-response.adoc[]
+include::{snippets}/History/End/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/End/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Failure/Case2/http-response.adoc[]
+include::{snippets}/History/End/Failure/Case2/response-fields.adoc[]
+
+=== 3. 유효하지 않은 historyId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/End/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Failure/Case3/http-response.adoc[]
+include::{snippets}/History/End/Failure/Case3/response-fields.adoc[]
+
+=== 4. 저장된 데이터와 사용자의 정보가 일치하지 않을 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/End/Failure/Case4/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Failure/Case4/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Failure/Case4/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Failure/Case4/http-response.adoc[]
+include::{snippets}/History/End/Failure/Case4/response-fields.adoc[]
+
+=== 5. 저장된 데이터와 차량의 정보가 일치하지 않을 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/History/End/Failure/Case5/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Failure/Case5/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Failure/Case5/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Failure/Case5/http-response.adoc[]
+include::{snippets}/History/End/Failure/Case5/response-fields.adoc[]
+
+=== 6. 이용 종료에 성공한다
+==== HTTP Request
+include::{snippets}/History/End/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/History/End/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/History/End/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/History/End/Success/http-response.adoc[]
+include::{snippets}/History/End/Success/response-fields.adoc[]
