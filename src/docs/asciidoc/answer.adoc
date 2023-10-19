@@ -1,0 +1,81 @@
+= ANSWER 답변 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 답변 생성
+=== 1. 유효하지 않은 questionId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Answer/Create/Failure/Case1/http-request.adoc[]
+Request Body
+include::{snippets}/Answer/Create/Failure/Case1/request-fields.adoc[]
+
+Path Variable
+include::{snippets}/Answer/Create/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Create/Failure/Case1/http-response.adoc[]
+include::{snippets}/Answer/Create/Failure/Case1/response-fields.adoc[]
+
+=== 2. 답변 생성에 성공한다
+==== HTTP Request
+include::{snippets}/Answer/Create/Success/http-request.adoc[]
+Request Body
+include::{snippets}/Answer/Create/Success/request-fields.adoc[]
+
+Path Variable
+include::{snippets}/Answer/Create/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Create/Success/http-response.adoc[]
+include::{snippets}/Answer/Create/Failure/Case1/response-fields.adoc[]
+
+== 답변 수정
+=== 1. 유효하지 않은 answerId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Answer/Edit/Failure/Case1/http-request.adoc[]
+Path Variable
+include::{snippets}/Answer/Edit/Failure/Case1/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/Answer/Edit/Failure/Case1/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Edit/Failure/Case1/http-response.adoc[]
+include::{snippets}/Answer/Edit/Failure/Case1/response-fields.adoc[]
+
+=== 2. 답변 수정에 성공한다
+==== HTTP Request
+include::{snippets}/Answer/Edit/Success/http-request.adoc[]
+Path Variable
+include::{snippets}/Answer/Edit/Success/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/Answer/Edit/Success/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Edit/Success/http-response.adoc[]
+include::{snippets}/Answer/Edit/Success/response-fields.adoc[]
+
+== 답변 삭제
+=== 1. 유효하지 않은 answerId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Answer/Delete/Failure/Case1/http-request.adoc[]
+Path Variable
+include::{snippets}/Answer/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/Answer/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 답변 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/Answer/Delete/Success/http-request.adoc[]
+Path Variable
+include::{snippets}/Answer/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Answer/Delete/Success/http-response.adoc[]
+include::{snippets}/Answer/Delete/Success/response-fields.adoc[]
