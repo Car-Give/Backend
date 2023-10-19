@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static com.example.cargive.notice.fixture.NoticeFixture.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -60,8 +62,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/List/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -92,8 +94,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Member/List/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -139,8 +141,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Info/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -171,8 +173,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Info/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -212,8 +214,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -263,8 +265,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Edit/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -296,8 +298,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Edit/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
+                                    getDocumentRequest(),
+                                    getDocumentResponse()
                             )
                     );
         }
@@ -338,8 +340,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -368,8 +370,8 @@ public class NoticeControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Notice/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()))
+                                    getDocumentRequest(),
+                                    getDocumentResponse())
                     );
         }
     }

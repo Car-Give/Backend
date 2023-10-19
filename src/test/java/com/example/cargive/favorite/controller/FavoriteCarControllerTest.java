@@ -10,6 +10,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -58,8 +60,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Create/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     ),
@@ -99,8 +101,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Create/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     ),
@@ -140,8 +142,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Create/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     ),
@@ -174,8 +176,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     )
@@ -219,8 +221,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteCarId").description("차량 즐겨찾기 Id")
                                     ),
@@ -260,8 +262,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Delete/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteCarId").description("차량 즐겨찾기 Id")
                                     ),
@@ -301,8 +303,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoriteCar/Delete/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteCarId").description("차량 즐겨찾기 Id")
                                     ),
@@ -334,8 +336,8 @@ public class FavoriteCarControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "FavoriteCar/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteCarId").description("차량 즐겨찾기 Id")
                                     )
