@@ -1,0 +1,195 @@
+= FAVORITEPKGROUP 즐겨찾기 그룹 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 즐겨찾기 그룹 조회
+=== 1. 데이터 조회 결과가 존재하지 않는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/List/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/List/Failure/Case1/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/List/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/List/Failure/Case1/response-fields.adoc[]
+
+=== 2. 지원하지 않는 정렬 기준으로 요청하는 경우, 오류를 반환다.
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/List/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/List/Failure/Case2/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/List/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/List/Failure/Case2/response-fields.adoc[]
+
+=== 3. 즐겨찾기 그룹 조회에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/List/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/List/Success/query-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/List/Success/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/List/Success/response-fields.adoc[]
+
+== 즐겨찾기 그룹 생성
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Create/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Create/Failure/Case1/query-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Create/Failure/Case1/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Create/Failure/Case1/response-body.adoc[]
+include::{snippets}/FavoritePkGroup/Create/Failure/Case1/response-fields.adoc[]
+
+=== 2. 즐겨찾기 그룹 생성에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Create/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Create/Success/query-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Create/Success/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Create/Success/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Create/Success/response-fields.adoc[]
+
+== 즐겨찾기 그룹 수정
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 favoriteGroupId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case2/response-fields.adoc[]
+
+=== 3. 등록된 사용자의 정보와 이용자의 정보가 일치하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Edit/Failure/Case3/response-fields.adoc[]
+
+=== 4. 즐겨찾기 그룹 수정에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Edit/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Edit/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Edit/Success/path-parameters.adoc[]
+
+Request Body
+include::{snippets}/FavoritePkGroup/Edit/Success/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Edit/Success/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Edit/Success/response-fields.adoc[]
+
+== 즐겨찾기 그룹 삭제
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 favoriteGroupId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. 등록된 사용자의 정보와 이용자의 정보가 일치하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Delete/Failure/Case3/response-fields.adoc[]
+
+=== 4. 즐겨찾기 그룹 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkGroup/Delete/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkGroup/Delete/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkGroup/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkGroup/Delete/Success/http-response.adoc[]
+include::{snippets}/FavoritePkGroup/Delete/Success/response-fields.adoc[]

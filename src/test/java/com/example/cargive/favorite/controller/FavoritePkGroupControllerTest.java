@@ -23,8 +23,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("FavoritePkGroup [Controller Layer] -> FavoritePkGroupController 테스트")
@@ -49,9 +48,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("sortBy", sortBy)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("cursorId", String.valueOf(cursorId));
+                    .queryParam("sortBy", sortBy)
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("cursorId", String.valueOf(cursorId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR;
@@ -70,6 +69,11 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     "FavoritePkGroup/List/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    queryParameters(
+                                            parameterWithName("sortBy").description("정렬 기준"),
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("cursorId").description("데이터 위치")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -90,9 +94,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("sortBy", sortBy)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("cursorId", String.valueOf(cursorId));
+                    .queryParam("sortBy", sortBy)
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("cursorId", String.valueOf(cursorId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.NOT_FOUND_SORT_CONDITION;
@@ -111,6 +115,11 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     "FavoritePkGroup/List/Failure/Case2",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    queryParameters(
+                                            parameterWithName("sortBy").description("정렬 기준"),
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("cursorId").description("데이터 위치")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -135,9 +144,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("sortBy", sortBy)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("cursorId", String.valueOf(cursorId));
+                    .queryParam("sortBy", sortBy)
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("cursorId", String.valueOf(cursorId));
 
             // then
             mockMvc.perform(request)
@@ -151,6 +160,11 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     "FavoritePkGroup/List/Success",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    queryParameters(
+                                            parameterWithName("sortBy").description("정렬 기준"),
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("cursorId").description("데이터 위치")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -189,7 +203,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     .post(BASE_URL)
                     .content(objectMapper.writeValueAsString(createRequest))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -208,6 +222,12 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     "FavoritePkGroup/Create/Failure/Case1",
                                     preprocessRequest(prettyPrint()),
                                     preprocessResponse(prettyPrint()),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("name").type(JsonFieldType.STRING).description("즐겨찾기 그룹 이름")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -232,7 +252,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     .post(BASE_URL)
                     .content(objectMapper.writeValueAsString(createRequest))
                     .contentType(MediaType.APPLICATION_JSON)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
@@ -241,7 +261,18 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                             document(
                                     "FavoritePkGroup/Create/Success",
                                     preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint())
+                                    preprocessResponse(prettyPrint()),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("name").type(JsonFieldType.STRING).description("즐겨찾기 그룹 이름")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -269,7 +300,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(errorMemberId))
+                    .queryParam("memberId", String.valueOf(errorMemberId))
                     .content(objectMapper.writeValueAsString(groupEditRequest))
                     .contentType(MediaType.APPLICATION_JSON);
 
@@ -296,6 +327,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -318,7 +352,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, errorFavoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .content(objectMapper.writeValueAsString(groupEditRequest))
                     .contentType(MediaType.APPLICATION_JSON);
 
@@ -345,6 +379,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -367,7 +404,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .content(objectMapper.writeValueAsString(groupEditRequest))
                     .contentType(MediaType.APPLICATION_JSON);
 
@@ -394,6 +431,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -416,7 +456,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .content(objectMapper.writeValueAsString(editRequest))
                     .contentType(MediaType.APPLICATION_JSON);
 
@@ -433,6 +473,14 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     ),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );
@@ -460,7 +508,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -482,6 +530,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -502,7 +553,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, errorFavoriteGroupId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR;
@@ -524,6 +575,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -544,7 +598,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_MEMBER_NOT_MATCH_ERROR;
@@ -566,6 +620,9 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -586,7 +643,7 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
@@ -598,6 +655,14 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                                     preprocessResponse(prettyPrint()),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );
