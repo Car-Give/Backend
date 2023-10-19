@@ -1,0 +1,64 @@
+= PARKINGLOT 주차장 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 주차장 단일 조회
+=== 1. 유효하지 않은 ParkingLot Entity의 PK값으로 요청한 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/ParkingLot/Info/Failure/Case1/http-request.adoc[]
+
+Path Variable
+include::{snippets}/ParkingLot/Info/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/ParkingLot/Info/Failure/Case1/http-response.adoc[]
+include::{snippets}/ParkingLot/Info/Failure/Case1/response-fields.adoc[]
+
+=== 2. ParkingLot 도메인 데이터를 조회한다
+==== HTTP Request
+include::{snippets}/ParkingLot/Info/Success/http-request.adoc[]
+
+Path Variable
+include::{snippets}/ParkingLot/Info/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/ParkingLot/Info/Success/http-response.adoc[]
+include::{snippets}/ParkingLot/Info/Success/response-fields.adoc[]
+
+== 주차장 등록
+=== 1. ParkingLot 도메인을 생성한다
+==== HTTP Request
+include::{snippets}/ParkingLot/Save/Success/http-request.adoc[]
+
+Request Body
+include::{snippets}/ParkingLot/Save/Success/request-fields.adoc[]
+
+==== HTTP Response
+include::{snippets}/ParkingLot/Save/Success/http-response.adoc[]
+include::{snippets}/ParkingLot/Save/Success/response-fields.adoc[]
+
+== 주차장 삭제
+=== 1. 유효하지 않은 ParkingLot Entity의 PK값으로 요청한 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/ParkingLot/DELETE/Failure/Case1/http-request.adoc[]
+
+Path Variable
+include::{snippets}/ParkingLot/DELETE/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/ParkingLot/DELETE/Failure/Case1/http-response.adoc[]
+include::{snippets}/ParkingLot/DELETE/Failure/Case1/response-fields.adoc[]
+
+=== 2. ParkingLot 도메인을 삭제한다
+==== HTTP Request
+include::{snippets}/ParkingLot/DELETE/Success/http-request.adoc[]
+
+Path Variable
+include::{snippets}/ParkingLot/DELETE/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/ParkingLot/DELETE/Success/http-response.adoc[]
+include::{snippets}/ParkingLot/DELETE/Success/response-fields.adoc[]
