@@ -1,6 +1,7 @@
 package com.example.cargive.global.config;
 
 import com.example.cargive.domain.auth.service.CustomOAuth2UserService;
+import com.example.cargive.global.config.oauth2.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -23,6 +25,7 @@ public class SecurityConfig {
                 .oauth2Login()
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
-                .and().and().build();
+                .and().successHandler(oAuth2SuccessHandler)
+                .and().build();
     }
 }
