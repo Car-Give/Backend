@@ -52,7 +52,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -78,7 +78,8 @@ public class MemberControllerTest extends ControllerTest {
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
-                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -94,7 +95,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("memberId", String.valueOf(deleteMemberId));
+                    .queryParam("memberId", String.valueOf(deleteMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_STATUS_NOT_VALID_ERROR;
@@ -136,7 +137,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc
@@ -199,7 +200,7 @@ public class MemberControllerTest extends ControllerTest {
                     .multipart(BASE_URL)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(errorMemberId))
+                    .queryParam("memberId", String.valueOf(errorMemberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -224,6 +225,9 @@ public class MemberControllerTest extends ControllerTest {
                                     "Member/Edit/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -250,7 +254,7 @@ public class MemberControllerTest extends ControllerTest {
                     .multipart(BASE_URL)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(errorMemberId))
+                    .queryParam("memberId", String.valueOf(errorMemberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -275,6 +279,9 @@ public class MemberControllerTest extends ControllerTest {
                                     "Member/Edit/Failure/Case2",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -301,7 +308,7 @@ public class MemberControllerTest extends ControllerTest {
                     .multipart(BASE_URL)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -317,8 +324,17 @@ public class MemberControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "Member/Edit/Success",
-                                    getDocumentRequest(),
+                                     getDocumentRequest(),
                                     getDocumentResponse())
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
+                            )
                     );
         }
     }
@@ -342,7 +358,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -362,6 +378,9 @@ public class MemberControllerTest extends ControllerTest {
                                     "Member/Delete/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -381,7 +400,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL)
-                    .param("memberId", String.valueOf(deleteMemberId));
+                    .queryParam("memberId", String.valueOf(deleteMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_STATUS_NOT_VALID_ERROR;
@@ -401,6 +420,9 @@ public class MemberControllerTest extends ControllerTest {
                                     "Member/Delete/Failure/Case2",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -420,7 +442,7 @@ public class MemberControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc
@@ -432,6 +454,14 @@ public class MemberControllerTest extends ControllerTest {
                                     "Member/Delete/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse()
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }

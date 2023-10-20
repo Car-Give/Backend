@@ -23,8 +23,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("History [Controller Layer] -> HistoryController 테스트")
@@ -49,7 +48,7 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL, errorCarId)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_LIST_EMPTY_ERROR;
@@ -69,7 +68,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     getDocumentRequest(),
                                     getDocumentResponse(),
                                     pathParameters(
-                                            parameterWithName("carId").description("차량 ID")
+                                            parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -93,7 +95,7 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
@@ -110,6 +112,9 @@ public class HistoryControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -147,8 +152,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, carId)
-                    .param("memberId", String.valueOf(errorMemberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(errorMemberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -170,6 +175,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -190,8 +199,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, errorCarId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
@@ -213,6 +222,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -233,8 +246,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(errorParkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(errorParkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR;
@@ -256,6 +269,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -276,8 +293,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR;
@@ -299,6 +316,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -319,8 +340,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             mockMvc.perform(request)
@@ -333,6 +354,15 @@ public class HistoryControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );
@@ -361,8 +391,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, historyId)
-                    .param("carId", String.valueOf(errorCarId))
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("carId", String.valueOf(errorCarId))
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
@@ -384,6 +414,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -404,8 +438,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, historyId)
-                    .param("carId", String.valueOf(carId))
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("carId", String.valueOf(carId))
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -427,6 +461,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -447,8 +485,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, errorHistoryId)
-                    .param("carId", String.valueOf(carId))
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("carId", String.valueOf(carId))
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_NOT_FOUND_ERROR;
@@ -470,6 +508,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -490,8 +532,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, historyId)
-                    .param("carId", String.valueOf(carId))
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("carId", String.valueOf(carId))
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR;
@@ -513,6 +555,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -533,8 +579,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, historyId)
-                    .param("carId", String.valueOf(carId))
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("carId", String.valueOf(carId))
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.HISTORY_CAR_NOT_MATCH_ERROR;
@@ -556,6 +602,10 @@ public class HistoryControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -576,8 +626,8 @@ public class HistoryControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .put(BASE_URL, historyId)
-                    .param("carId", String.valueOf(carId))
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("carId", String.valueOf(carId))
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
@@ -589,6 +639,15 @@ public class HistoryControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("carId").description("차량 Id"),
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );

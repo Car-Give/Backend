@@ -25,8 +25,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("FavoritePkInfo [Controller Layer] -> FavoritePkInfoController 테스트")
@@ -51,12 +50,11 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL, favoriteGroupId)
-                    .param("sortBy", "최신순")
-                    .param("memberId", String.valueOf(memberId))
-                    .param("cursorId", String.valueOf(cursorId));
+                    .queryParam("sortBy", "최신순")
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("cursorId", String.valueOf(cursorId));
 
             // then
-
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR;
 
             mockMvc.perform(request)
@@ -75,6 +73,11 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("sortBy").description("정렬 기준"),
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("cursorId").description("데이터 위치")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -102,9 +105,9 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL, favoriteGroupId)
-                    .param("sortBy", "최신순")
-                    .param("memberId", String.valueOf(memberId))
-                    .param("cursorId", String.valueOf(cursorId));
+                    .queryParam("sortBy", "최신순")
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("cursorId", String.valueOf(cursorId));
 
             // then
             mockMvc
@@ -124,6 +127,11 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("sortBy").description("정렬 기준"),
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("cursorId").description("데이터 위치")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -160,8 +168,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(errorMemberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(errorMemberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -184,6 +192,10 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -204,8 +216,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, errorFavoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR;
@@ -228,6 +240,10 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -248,8 +264,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_TYPE_ERROR;
@@ -272,6 +288,10 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -292,8 +312,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(errorParkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(errorParkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.PARKING_LOT_NOT_FOUND_ERROR;
@@ -316,6 +336,10 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -336,8 +360,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.INPUT_INVALID_VALUE;
@@ -360,6 +384,10 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -380,8 +408,8 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .post(BASE_URL, favoriteGroupId)
-                    .param("memberId", String.valueOf(memberId))
-                    .param("parkingLotId", String.valueOf(parkingLotId));
+                    .queryParam("memberId", String.valueOf(memberId))
+                    .queryParam("parkingLotId", String.valueOf(parkingLotId));
 
             // then
             mockMvc
@@ -394,6 +422,15 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id"),
+                                            parameterWithName("parkingLotId").description("주차장 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );
@@ -420,7 +457,7 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteInfoId)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -443,6 +480,9 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                               pathParameters(
                                       parameterWithName("favoriteInfoId").description("주차장 즐겨찾기 ID")
                               ),
+                              queryParameters(
+                                      parameterWithName("memberId").description("사용자 Id")
+                              ),
                               responseFields(
                                       fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                       fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -463,7 +503,7 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, errorFavoriteInfoId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_NOT_FOUND_ERROR;
@@ -486,6 +526,9 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteInfoId").description("주차장 즐겨찾기 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -506,7 +549,7 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteInfoId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.FAVORITE_TYPE_ERROR;
@@ -529,6 +572,9 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     pathParameters(
                                             parameterWithName("favoriteInfoId").description("주차장 즐겨찾기 ID")
                                     ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -549,7 +595,7 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, favoriteInfoId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc
@@ -562,6 +608,14 @@ public class FavoritePkInfoControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteInfoId").description("주차장 즐겨찾기 ID")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );

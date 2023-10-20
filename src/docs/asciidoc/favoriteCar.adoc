@@ -1,0 +1,120 @@
+= FAVORITECAR 즐겨찾기 자동차 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 차량 즐겨찾기 등록
+=== 1. 유효하지 않은 memberId로 요청할 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Create/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Create/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Create/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Create/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoriteCar/Create/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 carId로 요청할 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Create/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Create/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Create/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Create/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoriteCar/Create/Failure/Case2/response-fields.adoc[]
+
+=== 3. 사용자의 정보와 차량의 정보가 일치하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Create/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Create/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Create/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Create/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoriteCar/Create/Failure/Case3/response-fields.adoc[]
+
+=== 4. 차량 즐겨찾기 등록에 성공한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Create/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Create/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Create/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Create/Success/http-response.adoc[]
+include::{snippets}/FavoriteCar/Create/Success/response-fields.adoc[]
+
+== 차량 즐겨찾기 삭제
+=== 1. 유효하지 않은 memberId로 요청할 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Delete/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Delete/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoriteCar/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 favoriteCarId로 요청할 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Delete/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Delete/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Delete/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoriteCar/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. 사용자의 정보와 즐겨찾기의 정보가 일치하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Delete/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Delete/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Delete/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Delete/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoriteCar/Delete/Failure/Case3/response-fields.adoc[]
+
+=== 4. 즐겨찾기 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/FavoriteCar/Delete/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoriteCar/Delete/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoriteCar/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoriteCar/Delete/Success/http-response.adoc[]
+include::{snippets}/FavoriteCar/Delete/Success/response-fields.adoc[]

@@ -69,7 +69,8 @@ public class ParkingLotControllerTest extends ControllerTest {
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
-                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -93,9 +94,18 @@ public class ParkingLotControllerTest extends ControllerTest {
                     .andExpect(status().isOk())
                     .andDo(
                             document("ParkingLot/Info/Success",
-                                    getDocumentRequest(),
-                                    getDocumentResponse(),
-                            pathParameters(parameterWithName("parkingLotId").description("주차장 ID")))
+                            getDocumentRequest(),
+                            getDocumentResponse(),
+                            pathParameters(parameterWithName("parkingLotId").description("주차장 ID")),
+                            responseFields(
+                                    fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                    fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                    fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"),
+                                    fieldWithPath("result.id").type(JsonFieldType.NUMBER).description("주차장 Entity Id"),
+                                    fieldWithPath("result.latitude").type(JsonFieldType.NUMBER).description("위도"),
+                                    fieldWithPath("result.longitude").type(JsonFieldType.NUMBER).description("경도")
+                            )
+                            )
                     );
         }
     }
@@ -207,7 +217,12 @@ public class ParkingLotControllerTest extends ControllerTest {
                                     "ParkingLot/DELETE/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
-                                    pathParameters(parameterWithName("parkingLotId").description("주차장 ID"))
+                                    pathParameters(parameterWithName("parkingLotId").description("주차장 ID")),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }

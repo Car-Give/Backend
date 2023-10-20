@@ -30,8 +30,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("Car [Controller Layer] -> CarController 테스트")
@@ -54,7 +53,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_LIST_EMPTY_ERROR;
@@ -72,6 +71,9 @@ public class CarControllerTest extends ControllerTest {
                                     "Car/List/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -94,7 +96,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .get(BASE_URL)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc.perform(request)
@@ -106,6 +108,9 @@ public class CarControllerTest extends ControllerTest {
                                     "Car/List/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -153,7 +158,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(errorMemberId))
+                    .queryParam("memberId", String.valueOf(errorMemberId))
                     .accept(MediaType.APPLICATION_JSON);
 
             // then
@@ -171,6 +176,9 @@ public class CarControllerTest extends ControllerTest {
                                     "Car/Create/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -200,7 +208,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .accept(MediaType.APPLICATION_JSON);
 
             // then
@@ -212,6 +220,14 @@ public class CarControllerTest extends ControllerTest {
                                     "Car/Create/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse()
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
+                                    )
                             )
                     );
         }
@@ -247,7 +263,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL, errorCarId)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -255,7 +271,6 @@ public class CarControllerTest extends ControllerTest {
                     .accept(MediaType.APPLICATION_JSON);
 
             // then
-
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
@@ -271,6 +286,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -302,7 +320,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL, carId)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(errorMemberId))
+                    .queryParam("memberId", String.valueOf(errorMemberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -310,7 +328,6 @@ public class CarControllerTest extends ControllerTest {
                     .accept(MediaType.APPLICATION_JSON);
 
             // then
-
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isNotFound(),
@@ -326,6 +343,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -357,7 +377,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL, carId)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -365,7 +385,6 @@ public class CarControllerTest extends ControllerTest {
                     .accept(MediaType.APPLICATION_JSON);
 
             // then
-
             mockMvc.perform(request)
                     .andExpectAll(
                             status().isConflict(),
@@ -381,6 +400,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -411,7 +433,7 @@ public class CarControllerTest extends ControllerTest {
                     .multipart(BASE_URL, carId)
                     .file(file)
                     .file(mockRequest)
-                    .param("memberId", String.valueOf(memberId))
+                    .queryParam("memberId", String.valueOf(memberId))
                     .with(req -> {
                         req.setMethod("PUT");
                         return req;
@@ -430,6 +452,14 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );
@@ -456,7 +486,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, errorCarId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_NOT_FOUND_ERROR;
@@ -476,6 +506,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -497,7 +530,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, carId)
-                    .param("memberId", String.valueOf(errorMemberId));
+                    .queryParam("memberId", String.valueOf(errorMemberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.MEMBER_NOT_FOUND_ERROR;
@@ -517,6 +550,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -538,7 +574,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             final BaseResponseStatus expectException = BaseResponseStatus.CAR_MEMBER_NOT_MATCH_ERROR;
@@ -558,6 +594,9 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
                                     ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -579,7 +618,7 @@ public class CarControllerTest extends ControllerTest {
             // when
             MockHttpServletRequestBuilder request = RestDocumentationRequestBuilders
                     .delete(BASE_URL, carId)
-                    .param("memberId", String.valueOf(memberId));
+                    .queryParam("memberId", String.valueOf(memberId));
 
             // then
             mockMvc
@@ -592,6 +631,14 @@ public class CarControllerTest extends ControllerTest {
                                     getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
+                                    ),
+                                    queryParameters(
+                                            parameterWithName("memberId").description("사용자 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지")
                                     )
                             )
                     );

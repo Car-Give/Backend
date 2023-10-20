@@ -18,8 +18,9 @@ import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -64,6 +65,12 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Create/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    pathParameters(
+                                            parameterWithName("questionId").description("질문 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -96,6 +103,12 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Create/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse()
+                                    pathParameters(
+                                            parameterWithName("questionId").description("질문 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용")
+                                    )
                     )
                     );
         }
@@ -140,6 +153,12 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Edit/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    pathParameters(
+                                      parameterWithName("answerId").description("질문 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("수정할 답변 내용")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -172,6 +191,16 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Edit/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse()
+                                    pathParameters(
+                                    parameterWithName("answerId").description("질문 Id")
+                                    ),
+                                    requestFields(
+                                            fieldWithPath("content").type(JsonFieldType.STRING).description("수정할 답변 내용")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
                             )
                     );
         }
@@ -213,6 +242,9 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Delete/Failure/Case1",
                                     getDocumentRequest(),
                                     getDocumentResponse(),
+                                    pathParameters(
+                                            parameterWithName("answerId").description("질문 Id")
+                                    ),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -242,6 +274,13 @@ public class AnswerControllerTest extends ControllerTest {
                                     "Answer/Delete/Success",
                                     getDocumentRequest(),
                                     getDocumentResponse()
+                                    pathParameters(
+                                            parameterWithName("answerId").description("질문 Id")
+                                    ),
+                                    responseFields(
+                                            fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
+                                            fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
+                                            fieldWithPath("message").type(JsonFieldType.STRING).description("상태 메시지"))
                             )
                     );
         }

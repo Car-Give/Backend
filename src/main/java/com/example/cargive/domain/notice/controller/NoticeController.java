@@ -35,7 +35,7 @@ public class NoticeController {
     public ResponseEntity<BaseResponse> editNotice(@RequestBody @Valid NoticeRequest request,
                                                    @PathVariable Long noticeId) {
         noticeService.editNotice(request, noticeId);
-        return BaseResponse.toResponseEntityContainsResult(BaseResponseStatus.SUCCESS);
+        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
     }
 
     @DeleteMapping("/{noticeId}")

@@ -1,0 +1,86 @@
+= TAG 차량 특징 카드 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 차량 특징 카드 조회
+=== 1. 차량에 등록된 차량 특징 카드가 존재하지 않을 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Tag/List/Failure/Case1/http-request.adoc[]
+
+Path Variable
+include::{snippets}/Tag/List/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/List/Failure/Case1/http-response.adoc[]
+include::{snippets}/Tag/List/Failure/Case1/response-fields.adoc[]
+
+=== 2. 차량에 등록된 차량 특징 카드 조회에 성공한다
+==== HTTP Request
+include::{snippets}/Tag/List/Success/http-request.adoc[]
+
+Path Variable
+include::{snippets}/Tag/List/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/List/Success/http-response.adoc[]
+include::{snippets}/Tag/List/Success/response-fields.adoc[]
+
+== 차량 특징 카드 삭제
+=== 1. 유효하지 않은 tagId를 입력 받은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Tag/Delete/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/Tag/Delete/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/Tag/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/Tag/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 carId를 입력 받은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Tag/Delete/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/Tag/Delete/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/Tag/Delete/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/Tag/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. Tag와 Car Entity가 서로 연관된 관계가 아닐 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/Tag/Delete/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/Tag/Delete/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/Tag/Delete/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/Delete/Failure/Case3/http-response.adoc[]
+include::{snippets}/Tag/Delete/Failure/Case3/response-fields.adoc[]
+
+=== 4. 차량 특징 카드 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/Tag/Delete/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/Tag/Delete/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/Tag/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/Tag/Delete/Success/http-response.adoc[]
+include::{snippets}/Tag/Delete/Success/response-fields.adoc[]

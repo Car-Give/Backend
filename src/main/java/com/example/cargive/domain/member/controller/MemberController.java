@@ -27,7 +27,7 @@ public class MemberController {
                                                    @RequestPart(name = "request") MemberRequest request,
                                                    @RequestPart(name = "file") MultipartFile file) throws IOException {
         memberService.editMember(memberId, request, file);
-        return BaseResponse.toResponseEntityContainsResult(BaseResponseStatus.SUCCESS);
+        return BaseResponse.toResponseEntityContainsStatus(BaseResponseStatus.SUCCESS);
     }
 
     @DeleteMapping

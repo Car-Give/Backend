@@ -1,0 +1,177 @@
+= FAVORITEPKINFO 즐겨찾기 주차장 API
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+
+== 즐겨찾기된 주차장 조회
+=== 1. 조회한 결과가 존재하지 않은 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/List/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/List/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/List/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/List/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/List/Failure/Case1/response-fields.adoc[]
+
+=== 2. 데이터의 조회에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/List/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/List/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/List/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/List/Success/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/List/Success/response-fields.adoc[]
+
+== 주차장 즐겨찾기 등록
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 favoriteGroupId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Failure/Case2/response-fields.adoc[]
+
+=== 3. 유효하지 않은 데이터 타입인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Failure/Case3/response-fields.adoc[]
+
+=== 4. 유효하지 않은 parkingLotId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Failure/Case4/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Failure/Case4/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Failure/Case4/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Failure/Case4/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Failure/Case4/response-fields.adoc[]
+
+=== 5. 이미 삭제된 데이터인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Failure/Case5/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Failure/Case5/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Failure/Case5/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Failure/Case5/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Failure/Case5/response-fields.adoc[]
+
+=== 6. 주차장을 즐겨찾기에 등록하는 것에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Create/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Create/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Create/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Create/Success/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Create/Success/response-fields.adoc[]
+
+== 즐겨찾기된 주차장 삭제
+=== 1. 유효하지 않은 memberId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case1/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case1/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case1/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case1/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case1/response-fields.adoc[]
+
+=== 2. 유효하지 않은 favoriteInfoId로 요청하는 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case2/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case2/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case2/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case2/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case2/response-fields.adoc[]
+
+=== 3. 유효하지 않은 데이터 타입인 경우, 오류를 반환한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case3/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case3/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case3/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case3/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Delete/Failure/Case3/response-fields.adoc[]
+
+=== 4. 주차장 즐겨찾기 삭제에 성공한다
+==== HTTP Request
+include::{snippets}/FavoritePkInfo/Delete/Success/http-request.adoc[]
+
+Query String
+include::{snippets}/FavoritePkInfo/Delete/Success/query-parameters.adoc[]
+
+Path Variable
+include::{snippets}/FavoritePkInfo/Delete/Success/path-parameters.adoc[]
+
+==== HTTP Response
+include::{snippets}/FavoritePkInfo/Delete/Success/http-response.adoc[]
+include::{snippets}/FavoritePkInfo/Delete/Success/response-fields.adoc[]
