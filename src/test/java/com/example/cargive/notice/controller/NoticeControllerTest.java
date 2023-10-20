@@ -23,8 +23,6 @@ import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static com.example.cargive.notice.fixture.NoticeFixture.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -317,7 +315,7 @@ public class NoticeControllerTest extends ControllerTest {
                             document(
                                     "Notice/Edit/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("noticeId").description("공지사항 Id")
                                     ),
@@ -404,7 +402,7 @@ public class NoticeControllerTest extends ControllerTest {
                             document(
                                     "Notice/Delete/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("noticeId").description("공지사항 Id")
                                     ),

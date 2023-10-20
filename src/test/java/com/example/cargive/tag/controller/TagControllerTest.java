@@ -19,7 +19,6 @@ import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
 import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

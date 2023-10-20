@@ -22,8 +22,6 @@ import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static com.example.cargive.member.fixture.MemberFixture.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -325,7 +323,7 @@ public class MemberControllerTest extends ControllerTest {
                             document(
                                     "Member/Edit/Success",
                                      getDocumentRequest(),
-                                    getDocumentResponse())
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 Id")
                                     ),
@@ -453,7 +451,7 @@ public class MemberControllerTest extends ControllerTest {
                             document(
                                     "Member/Delete/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 Id")
                                     ),
