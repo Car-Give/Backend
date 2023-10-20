@@ -12,6 +12,8 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static com.example.cargive.question.fixture.QuestionFixture.QUESTION_0;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -60,8 +62,8 @@ public class QuestionControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "Question/Save/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 ID")
                                     ),
@@ -116,8 +118,8 @@ public class QuestionControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "Question/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("questionId").description("질문 ID")
                                     ),
@@ -159,8 +161,8 @@ public class QuestionControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "Question/Delete/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("questionId").description("질문 ID")
                                     ),
@@ -195,8 +197,8 @@ public class QuestionControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "Question/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("questionId").description("질문 ID")
                                     )

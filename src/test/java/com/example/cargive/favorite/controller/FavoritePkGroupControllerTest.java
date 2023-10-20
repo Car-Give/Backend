@@ -18,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -67,8 +69,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/List/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("sortBy").description("정렬 기준"),
                                             parameterWithName("memberId").description("사용자 Id"),
@@ -113,8 +115,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/List/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("sortBy").description("정렬 기준"),
                                             parameterWithName("memberId").description("사용자 Id"),
@@ -158,8 +160,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/List/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("sortBy").description("정렬 기준"),
                                             parameterWithName("memberId").description("사용자 Id"),
@@ -220,8 +222,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Create/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 Id")
                                     ),
@@ -260,8 +262,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "FavoritePkGroup/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse()
                                     queryParameters(
                                             parameterWithName("memberId").description("사용자 Id")
                                     ),
@@ -319,8 +321,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Edit/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     requestFields(
                                             fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 즐겨찾기 그룹의 이름")
                                     ),
@@ -371,8 +373,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Edit/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     requestFields(
                                             fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 즐겨찾기 그룹의 이름")
                                     ),
@@ -423,8 +425,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Edit/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     requestFields(
                                             fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 즐겨찾기 그룹의 이름")
                                     ),
@@ -466,8 +468,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "FavoritePkGroup/Edit/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     requestFields(
                                             fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 즐겨찾기 그룹의 이름")
                                     ),
@@ -525,8 +527,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
@@ -570,8 +572,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Delete/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
@@ -615,8 +617,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "FavoritePkGroup/Delete/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),
@@ -651,8 +653,8 @@ public class FavoritePkGroupControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "FavoritePkGroup/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("favoriteGroupId").description("즐겨찾기 그룹 Id")
                                     ),

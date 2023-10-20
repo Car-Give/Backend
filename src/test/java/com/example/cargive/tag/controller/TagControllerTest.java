@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -57,8 +59,8 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/List/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(parameterWithName("carId").description("차량 ID")),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -91,8 +93,8 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/List/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(parameterWithName("carId").description("차량 ID")),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
@@ -143,8 +145,8 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/Delete/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("tagId").description("차량 특징 카드 ID")
                                     ),
@@ -187,8 +189,8 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/Delete/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("tagId").description("차량 특징 카드 ID")
                                     ),
@@ -231,14 +233,15 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/Delete/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("tagId").description("차량 특징 카드 ID")
                                     ),
                                     queryParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     ),
+                                    pathParameters(parameterWithName("tagId").description("차량 특징 카드 ID")),
                                     responseFields(
                                             fieldWithPath("status").type(JsonFieldType.NUMBER).description("HTTP 상태 코드"),
                                             fieldWithPath("code").type(JsonFieldType.STRING).description("커스텀 상태 코드"),
@@ -267,8 +270,8 @@ public class TagControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "Tag/Delete/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("tagId").description("차량 특징 카드 ID")
                                     ),

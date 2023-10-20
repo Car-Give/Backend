@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
+import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
@@ -63,8 +65,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/List/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 Id")
                                     ),
@@ -106,8 +108,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/List/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -168,8 +170,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/Create/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -215,8 +217,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/Create/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -262,8 +264,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/Create/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -309,8 +311,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/Create/Failure/Case4",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -348,8 +350,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/Create/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("carId").description("차량 ID")
                                     ),
@@ -407,8 +409,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/End/Failure/Case1",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
@@ -454,8 +456,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/End/Failure/Case2",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
@@ -501,8 +503,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/End/Failure/Case3",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
@@ -548,8 +550,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/End/Failure/Case4",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
@@ -595,8 +597,8 @@ public class HistoryControllerTest extends ControllerTest {
                     ).andDo(
                             document(
                                     "History/End/Failure/Case5",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
@@ -633,8 +635,8 @@ public class HistoryControllerTest extends ControllerTest {
                     .andDo(
                             document(
                                     "History/End/Success",
-                                    preprocessRequest(prettyPrint()),
-                                    preprocessResponse(prettyPrint()),
+                                    getDocumentRequest(),
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("historyId").description("이용 기록 ID")
                                     ),
