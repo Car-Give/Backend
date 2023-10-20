@@ -16,8 +16,6 @@ import static com.example.cargive.common.ApiDocumentUtils.getDocumentRequest;
 import static com.example.cargive.common.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
@@ -102,7 +100,7 @@ public class AnswerControllerTest extends ControllerTest {
                             document(
                                     "Answer/Create/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("questionId").description("질문 Id")
                                     ),
@@ -190,7 +188,7 @@ public class AnswerControllerTest extends ControllerTest {
                             document(
                                     "Answer/Edit/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()
+                                    getDocumentResponse(),
                                     pathParameters(
                                     parameterWithName("answerId").description("질문 Id")
                                     ),
@@ -273,7 +271,7 @@ public class AnswerControllerTest extends ControllerTest {
                             document(
                                     "Answer/Delete/Success",
                                     getDocumentRequest(),
-                                    getDocumentResponse()
+                                    getDocumentResponse(),
                                     pathParameters(
                                             parameterWithName("answerId").description("질문 Id")
                                     ),
